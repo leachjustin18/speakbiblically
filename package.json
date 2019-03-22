@@ -1,0 +1,19 @@
+{
+  "name": "speakbiblically",
+  "version": "1.0.0",
+  "description": "39th Street Church of Christ Speak Biblically Site",
+  "main": "src/Layout/index.tsx",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leachjustin18/speakbiblically.git"
+  },
+  "author": "Justin Leach",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leachjustin18/speakbiblically/issues"
+  },
+  "homepage": "https://github.com/leachjustin18/speakbiblically#readme"
+}
