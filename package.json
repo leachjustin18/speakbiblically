@@ -6,6 +6,10 @@
   "scripts": {
     "test": "test"
   },
+  "browserslist": [
+    "defaults",
+    "ie >=9"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leachjustin18/speakbiblically.git"
@@ -58,5 +62,25 @@
     "tslint-loader": "3.5.4",
     "tslint-plugin-prettier": "2.0.1",
     "tslint-react": "3.6.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "tslint --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{js,json}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*{.scss}": [
+      "stylelint --fix",
+      "git add"
+    ]
   }
 }
