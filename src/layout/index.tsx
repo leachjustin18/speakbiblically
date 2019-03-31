@@ -2,7 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 
 interface LayoutProps {
-  children: JSX.Element[];
+  children: JSX.Element[] | JSX.Element;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }) => (
