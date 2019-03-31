@@ -2,7 +2,7 @@
   "name": "speakbiblically",
   "version": "1.0.0",
   "description": "39th Street Church of Christ Speak Biblically Site",
-  "main": "src/Layout/index.tsx",
+  "main": "src/layout/index.tsx",
   "scripts": {
     "develop": "gatsby develop",
     "start": "npm run develop",
