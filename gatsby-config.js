@@ -44,11 +44,9 @@ module.exports = {
     `gatsby-plugin-offline`,
     `gatsby-plugin-favicon`,
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-sharp`,
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-typescript`,
     `gatsby-plugin-tslint`,
-    `gatsby-transformer-sharp`,
     `gatsby-plugin-netlify`,
   ],
 };
