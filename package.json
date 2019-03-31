@@ -4,6 +4,8 @@
   "description": "39th Street Church of Christ Speak Biblically Site",
   "main": "src/Layout/index.tsx",
   "scripts": {
+    "develop": "gatsby develop",
+    "start": "npm run develop",
     "test": "test"
   },
   "browserslist": [
@@ -21,6 +23,7 @@
   },
   "homepage": "https://github.com/leachjustin18/speakbiblically#readme",
   "dependencies": {
+    "core-js": "2.6.5",
     "gatsby": "2.2.6",
     "gatsby-plugin-favicon": "3.1.5",
     "gatsby-plugin-manifest": "2.0.24",
@@ -32,11 +35,12 @@
     "gatsby-plugin-sitemap": "2.0.10",
     "gatsby-plugin-typescript": "2.0.11",
     "react": "16.8.4",
-    "react-dom": "16.8.4",
+    "react-dom": "16.8.6",
     "react-helmet": "5.2.0",
     "typescript": "3.3.4000"
   },
   "devDependencies": {
+    "@hot-loader/react-dom": "16.8.6",
     "@types/react": "16.8.8",
     "@types/react-dom": "16.8.3",
     "@types/react-helmet": "5.0.8",
