@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Helmet from 'react-helmet';
 
 interface LayoutProps {
   children: JSX.Element[] | JSX.Element;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => (
+const Layout: FC<LayoutProps> = ({ children }) => (
   <main>
     <Helmet>
       <title>Speak Biblically</title>
