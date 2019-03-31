@@ -1,0 +1,14 @@
+# Project dependencies
+.cache
+node_modules
+
+# Build directory
+/public
+
+#Misc
+.DS_Store
+.env
+.vscode
+
+#Log files
+npm-debug.log*
