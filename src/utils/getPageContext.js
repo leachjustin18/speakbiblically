@@ -9,6 +9,7 @@ import {
 const theme = createMuiTheme({
   typography: {
     useNextVariants: true,
+    fontFamily: ['Montserrat', 'Arial'],
   },
 });
 
