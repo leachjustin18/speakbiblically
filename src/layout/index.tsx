@@ -25,6 +25,7 @@ const styles = theme => ({
 const Layout: FC<LayoutProps> = ({ classes, children }) => (
   <main className={classes.main}>
     <Helmet>
+      <html lang="en" />
       <title>Speak Biblically</title>
       <meta
         name="description"
