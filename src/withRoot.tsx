@@ -17,7 +17,7 @@ interface PageContext {
 
 // tslint:disable-next-line:variable-name
 function withRoot(Component: any) {
-  class WithRoot extends React.Component<JSX.Element[] | JSX.Element, {}> {
+  class WithRoot extends React.Component<any, {}> {
     private pageContext: PageContext;
 
     private constructor(props: any) {
