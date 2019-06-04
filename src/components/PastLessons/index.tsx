@@ -63,12 +63,12 @@ const PastLessons: FC<PastLessons> = ({ classes }) => (
 
     <List className={classes.list}>
       {fakePastLessons.map((lesson, index) => (
-        <React.Fragment key={index}>
+        <Fragment key={index}>
           <ListItem alignItems="flex-start">
             <ListItemText
               primary={lesson.title}
               secondary={
-                <React.Fragment>
+                <Fragment>
                   <Typography
                     variant="body2"
                     component="span"
@@ -93,13 +93,13 @@ const PastLessons: FC<PastLessons> = ({ classes }) => (
                   >
                     Learn More
                   </Button>
-                </React.Fragment>
+                </Fragment>
               }
             />
           </ListItem>
 
           {fakePastLessons.length !== index + 1 && <Divider />}
-        </React.Fragment>
+        </Fragment>
       ))}
     </List>
   </Fragment>
