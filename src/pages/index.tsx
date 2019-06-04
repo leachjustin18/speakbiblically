@@ -1,49 +1,34 @@
 import React, { FC } from 'react';
-import Layout from '../layout';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { WithStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import Bible from '../images/Bible.jpg';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+
+import Layout from '../layout';
+import PastLessons from '../components/PastLessons';
 
 interface HomePage extends WithStyles<typeof styles> {}
 
 const styles = () => ({
-  title: {
-    color: '#d9a762',
-    backgroundColor: '#454040',
-    paddingBottom: '20px',
-    marginBottom: 0,
-  },
   section: {
-    maxWidth: '1030px',
-    backgroundColor: 'rgba(255, 255, 255, .7)',
-    margin: '0 auto',
-    padding: '50px',
+    padding: '1rem',
   },
-  backGroundImage: {
-    opacity: 0.5,
-    top: 0,
-    bottom: 0,
-    width: '100%',
-    position: 'absolute' as 'absolute',
-    zIndex: -1,
-    margin: 0,
+  '@media (min-width: 768px)': {
+    section: {
+      maxWidth: '1030px',
+      backgroundColor: 'rgba(255, 255, 255, .7)',
+      margin: '0 auto',
+      padding: '50px',
+    },
   },
 });
 
 const HomePage: FC<HomePage> = ({ classes }) => (
   <Layout>
-    <Typography
-      component="h1"
-      variant="h1"
-      gutterBottom={true}
-      align="center"
-      className={classes.title}
-    >
-      Speak Biblically
-    </Typography>
-
     <section className={classes.section}>
       <Typography component="h2" variant="h3" gutterBottom={true}>
         Recent Lesson
@@ -63,16 +48,8 @@ const HomePage: FC<HomePage> = ({ classes }) => (
         Learn More
       </Button>
 
-      <Typography component="h3" variant="h3" gutterBottom={true}>
-        Past Lessons
-      </Typography>
+      <PastLessons />
     </section>
-
-    <img
-      src={Bible}
-      alt="Holy Bible King James Version"
-      className={classes.backGroundImage}
-    />
   </Layout>
 );
 
