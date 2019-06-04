@@ -3,10 +3,6 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { WithStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 
 import Layout from '../layout';
 import PastLessons from '../components/PastLessons';
@@ -16,6 +12,10 @@ interface HomePage extends WithStyles<typeof styles> {}
 const styles = () => ({
   section: {
     padding: '1rem',
+  },
+  learnMoreButton: {
+    display: 'block',
+    marginTop: '0.6rem',
   },
   '@media (min-width: 768px)': {
     section: {
@@ -30,7 +30,7 @@ const styles = () => ({
 const HomePage: FC<HomePage> = ({ classes }) => (
   <Layout>
     <section className={classes.section}>
-      <Typography component="h2" variant="h3" gutterBottom={true}>
+      <Typography component="h2" variant="h2" gutterBottom={true}>
         Recent Lesson
       </Typography>
 
@@ -44,7 +44,15 @@ const HomePage: FC<HomePage> = ({ classes }) => (
         Bible says about it ...
       </Typography>
 
-      <Button variant="contained" color="primary">
+      <Typography variant="caption" component="span">
+        Date: 03/12/2019
+      </Typography>
+
+      <Button
+        variant="contained"
+        color="primary"
+        className={classes.learnMoreButton}
+      >
         Learn More
       </Button>
 
