@@ -18,9 +18,29 @@ const styles = (theme: Theme) => ({
   list: {
     backgroundColor: theme.palette.background.paper,
   },
-  learnMoreButton: {
+  publishedDate: {
     display: 'block',
-    marginTop: '0.6rem',
+  },
+  learnMoreLink: {
+    display: 'inline-block',
+    textDecoration: 'none',
+    color: '#fff',
+    backgroundColor: '#3f51b5',
+    boxShadow: `0px 1px 5px 0px rgba(0,0,0,0.2),
+      0px 2px 2px 0px rgba(0,0,0,0.14),
+      0px 3px 1px -2px rgba(0,0,0,0.12)`,
+    lineHeight: 1.75,
+    fontFamily: 'Montserrat, Arial',
+    fontWeight: 500,
+    borderRadius: '4px',
+    textTransform: 'uppercase',
+    padding: '6px 16px',
+    fontSize: '0.875rem',
+    minWidth: '64px',
+    boxSizing: 'border-box',
+    '&:hover': {
+      backgroundColor: '#303f9f',
+    },
   },
   description: {
     display: 'block',
@@ -82,17 +102,14 @@ const PastLessons: FC<PastLessons> = ({ classes }) => (
                     variant="caption"
                     component="span"
                     gutterBottom={true}
+                    className={classes.publishedDate}
                   >
                     Date: {lesson.date}
                   </Typography>
 
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    className={classes.learnMoreButton}
-                  >
+                  <Link to="/lesson" className={classes.learnMoreLink}>
                     Learn More
-                  </Button>
+                  </Link>
                 </Fragment>
               }
             />

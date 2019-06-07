@@ -2,20 +2,40 @@ import React, { FC } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { WithStyles } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import { Link } from 'gatsby';
 
 import Layout from '../layout';
 import PastLessons from '../components/PastLessons';
 
 interface HomePage extends WithStyles<typeof styles> {}
 
-const styles = () => ({
+const styles = theme => ({
   section: {
     padding: '1rem',
   },
-  learnMoreButton: {
+  publishedDate: {
     display: 'block',
-    marginTop: '0.6rem',
+  },
+  learnMoreLink: {
+    display: 'inline-block',
+    textDecoration: 'none',
+    color: '#fff',
+    backgroundColor: '#3f51b5',
+    boxShadow: `0px 1px 5px 0px rgba(0,0,0,0.2),
+      0px 2px 2px 0px rgba(0,0,0,0.14),
+      0px 3px 1px -2px rgba(0,0,0,0.12)`,
+    lineHeight: 1.75,
+    fontFamily: 'Montserrat, Arial',
+    fontWeight: 500,
+    borderRadius: '4px',
+    textTransform: 'uppercase',
+    padding: '6px 16px',
+    fontSize: '0.875rem',
+    minWidth: '64px',
+    boxSizing: 'border-box',
+    '&:hover': {
+      backgroundColor: '#303f9f',
+    },
   },
   '@media (min-width: 768px)': {
     section: {
@@ -44,17 +64,23 @@ const HomePage: FC<HomePage> = ({ classes }) => (
         Bible says about it ...
       </Typography>
 
-      <Typography variant="caption" component="span">
+      <Typography
+        variant="caption"
+        component="span"
+        className={classes.publishedDate}
+        gutterBottom={true}
+      >
         Date: 03/12/2019
       </Typography>
 
-      <Button
-        variant="contained"
-        color="primary"
-        className={classes.learnMoreButton}
+      <Link
+        to="/lesson"
+        className={`${
+          classes.learnMoreLink
+        } MuiButton-containedPrimary MuiButton-root  MuiButtonBase-root`}
       >
         Learn More
-      </Button>
+      </Link>
 
       <PastLessons />
     </section>
