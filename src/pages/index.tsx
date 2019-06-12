@@ -10,9 +10,6 @@ import PastLessons from '../components/PastLessons';
 interface HomePage extends WithStyles<typeof styles> {}
 
 const styles = theme => ({
-  section: {
-    padding: '1rem',
-  },
   publishedDate: {
     display: 'block',
   },
@@ -37,19 +34,11 @@ const styles = theme => ({
       backgroundColor: '#303f9f',
     },
   },
-  '@media (min-width: 768px)': {
-    section: {
-      maxWidth: '1030px',
-      backgroundColor: 'rgba(255, 255, 255, .7)',
-      margin: '0 auto',
-      padding: '50px',
-    },
-  },
 });
 
 const HomePage: FC<HomePage> = ({ classes }) => (
   <Layout>
-    <section className={classes.section}>
+    <section>
       <Typography component="h2" variant="h2" gutterBottom={true}>
         Recent Lesson
       </Typography>

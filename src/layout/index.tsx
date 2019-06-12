@@ -24,6 +24,17 @@ const styles = () => ({
       backgroundSize: 'cover',
     },
   },
+  childrenParent: {
+    padding: '1rem',
+  },
+  '@media (min-width: 768px)': {
+    childrenParent: {
+      maxWidth: '1030px',
+      backgroundColor: 'rgba(255, 255, 255, .7)',
+      margin: '0 auto',
+      padding: '50px',
+    },
+  },
 });
 
 const Layout: FC<LayoutProps> = ({ classes, children }) => (
@@ -39,7 +50,7 @@ const Layout: FC<LayoutProps> = ({ classes, children }) => (
 
     <Header />
 
-    {children}
+    <div className={classes.childrenParent}>{children}</div>
 
     <div className={classes.backGroundImage} />
   </main>
