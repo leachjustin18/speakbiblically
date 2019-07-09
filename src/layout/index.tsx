@@ -23,6 +23,9 @@ const styles = () => ({
       backgroundImage: `url(${Bible})`,
       backgroundSize: 'cover',
     },
+    childrenParent: {
+      padding: '50px',
+    },
   },
   childrenParent: {
     padding: '1rem',
@@ -32,7 +35,6 @@ const styles = () => ({
       maxWidth: '1030px',
       backgroundColor: 'rgba(255, 255, 255, .7)',
       margin: '0 auto',
-      padding: '50px',
     },
   },
 });

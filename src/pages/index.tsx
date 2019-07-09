@@ -9,7 +9,7 @@ import PastLessons from '../components/PastLessons';
 
 interface HomePage extends WithStyles<typeof styles> {}
 
-const styles = theme => ({
+const styles = () => ({
   publishedDate: {
     display: 'block',
   },
@@ -25,11 +25,11 @@ const styles = theme => ({
     fontFamily: 'Montserrat, Arial',
     fontWeight: 500,
     borderRadius: '4px',
-    textTransform: 'uppercase',
+    textTransform: 'uppercase' as 'uppercase',
     padding: '6px 16px',
     fontSize: '0.875rem',
     minWidth: '64px',
-    boxSizing: 'border-box',
+    boxSizing: 'border-box' as 'border-box',
     '&:hover': {
       backgroundColor: '#303f9f',
     },
