@@ -2,14 +2,48 @@ import React, { FC } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { WithStyles } from '@material-ui/core';
-import { Link } from 'gatsby';
+import { Link, graphql, useStaticQuery } from 'gatsby';
 
 import Layout from '../layout';
 import PastLessons from '../components/PastLessons';
 
 interface HomePage extends WithStyles<typeof styles> {}
 
-const HomePage: FC<HomePage> = ({ classes }) => (
+
+interface RecentLessonProps {
+    recentLesson: {
+      edges: [{
+        node: {
+          date: string
+          title: string
+          description: string
+          id: number
+        }
+      }]
+    }
+}
+
+const HomePage: FC<HomePage> = ({ classes }) => {
+
+  const data: RecentLessonProps = useStaticQuery(graphql`
+  query homePage {
+    recentLesson: allGoogleSheetLessonsRow(filter: {recentlesson: {eq: "Y"}}) {
+      edges {
+        node {
+          date
+          title
+          description
+          id
+        }
+      }
+    }
+  }
+`);
+
+const recentLessonData = data.recentLesson.edges[0].node;
+
+
+  return (
   <Layout>
     <section>
       <Typography component="h2" variant="h2" gutterBottom={true}>
@@ -17,13 +51,11 @@ const HomePage: FC<HomePage> = ({ classes }) => (
       </Typography>
 
       <Typography variant="subtitle2" component="p" gutterBottom={true}>
-        <strong>Does my church teach the truth?</strong>
+        <strong>{recentLessonData.title}</strong>
       </Typography>
 
       <Typography variant="body1" gutterBottom={true}>
-        With some many different kinds of churches these days, this can be a
-        hard question to answer. What's important is we look to see what the
-        Bible says about it ...
+        {recentLessonData.description}
       </Typography>
 
       <Typography
@@ -32,7 +64,7 @@ const HomePage: FC<HomePage> = ({ classes }) => (
         className={classes.publishedDate}
         gutterBottom={true}
       >
-        Date: 03/12/2019
+        Date: {recentLessonData.date}
       </Typography>
 
       <Link
@@ -47,7 +79,7 @@ const HomePage: FC<HomePage> = ({ classes }) => (
       <PastLessons />
     </section>
   </Layout>
-);
+)};
 
 const styles = () => ({
   publishedDate: {
