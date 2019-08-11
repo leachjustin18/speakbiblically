@@ -6,7 +6,6 @@ import { WithStyles } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Button from '@material-ui/core/Button';
 import ListItemText from '@material-ui/core/ListItemText';
 
 interface PastLessons extends WithStyles<typeof styles> {}
@@ -96,6 +95,9 @@ const styles = (theme: Theme) => ({
   publishedDate: {
     display: 'block',
   },
+  description: {
+    display: 'block',
+  },
   learnMoreLink: {
     display: 'inline-block',
     textDecoration: 'none',
@@ -108,17 +110,14 @@ const styles = (theme: Theme) => ({
     fontFamily: 'Montserrat, Arial',
     fontWeight: 500,
     borderRadius: '4px',
-    textTransform: 'uppercase',
+    textTransform: 'uppercase' as 'uppercase',
     padding: '6px 16px',
     fontSize: '0.875rem',
     minWidth: '64px',
-    boxSizing: 'border-box',
+    boxSizing: 'border-box' as 'border-box',
     '&:hover': {
       backgroundColor: '#303f9f',
     },
-  },
-  description: {
-    display: 'block',
   },
 });
 
