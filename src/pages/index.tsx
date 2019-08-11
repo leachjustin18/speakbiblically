@@ -9,7 +9,6 @@ import PastLessons from '../components/PastLessons';
 
 interface HomePage extends WithStyles<typeof styles> {}
 
-
 interface RecentLessonProps {
     recentLesson: {
       edges: [{
