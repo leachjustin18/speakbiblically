@@ -49,6 +49,14 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
+    {
+      resolve: 'gatsby-source-google-sheets',
+      options: {
+          spreadsheetId: '1bKMxl15efhuFFtppUWQwzppDALj68VsCWbljYmym7A8',
+          worksheetTitle: 'Lessons',
+          credentials: require('./client_secret.json')
+      }
+  },
     `gatsby-plugin-offline`,
     `gatsby-plugin-favicon`,
     `gatsby-plugin-react-helmet`,
