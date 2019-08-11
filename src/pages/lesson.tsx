@@ -91,12 +91,6 @@ const Lesson: FC<Lesson> = ({ classes }) => (
           <a href="/">What do I have to do to be saved?</a>
         </li>
       </ul>
-
-      <Typography component="h5" variant="h5" gutterBottom={true}>
-        Want to learn more? Send us an email:
-      </Typography>
-
-      {/* TODO: Set up email through netlify functions */}
     </section>
   </Layout>
 );
