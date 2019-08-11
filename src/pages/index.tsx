@@ -10,75 +10,78 @@ import PastLessons from '../components/PastLessons';
 interface HomePage extends WithStyles<typeof styles> {}
 
 interface RecentLessonProps {
-    recentLesson: {
-      edges: [{
+  recentLesson: {
+    edges: [
+      {
         node: {
-          date: string
-          title: string
-          description: string
-          id: number
-        }
-      }]
-    }
+          date: string;
+          title: string;
+          description: string;
+          id: number;
+        };
+      }
+    ];
+  };
 }
 
 const HomePage: FC<HomePage> = ({ classes }) => {
-
   const data: RecentLessonProps = useStaticQuery(graphql`
-  query homePage {
-    recentLesson: allGoogleSheetLessonsRow(filter: {recentlesson: {eq: "Y"}}) {
-      edges {
-        node {
-          date
-          title
-          description
-          id
+    query homePage {
+      recentLesson: allGoogleSheetLessonsRow(
+        filter: { recentlesson: { eq: "Y" } }
+      ) {
+        edges {
+          node {
+            date
+            title
+            description
+            id
+          }
         }
       }
     }
-  }
-`);
+  `);
 
-const recentLessonData = data.recentLesson.edges[0].node;
-
+  const recentLessonData = data.recentLesson.edges[0].node;
 
   return (
-  <Layout>
-    <section>
-      <Typography component="h2" variant="h2" gutterBottom={true}>
-        Recent Lesson
-      </Typography>
+    <Layout>
+      <section>
+        <Typography component="h2" variant="h2" gutterBottom={true}>
+          Recent Lesson
+        </Typography>
 
-      <Typography variant="subtitle2" component="p" gutterBottom={true}>
-        <strong>{recentLessonData.title}</strong>
-      </Typography>
+        <Typography variant="subtitle2" component="p" gutterBottom={true}>
+          <strong>{recentLessonData.title}</strong>
+        </Typography>
 
-      <Typography variant="body1" gutterBottom={true}>
-        {recentLessonData.description}
-      </Typography>
+        <Typography variant="body1" gutterBottom={true}>
+          {recentLessonData.description}
+        </Typography>
 
-      <Typography
-        variant="caption"
-        component="span"
-        className={classes.publishedDate}
-        gutterBottom={true}
-      >
-        Date: {recentLessonData.date}
-      </Typography>
+        <Typography
+          variant="caption"
+          component="span"
+          className={classes.publishedDate}
+          gutterBottom={true}
+        >
+          Date: {recentLessonData.date}
+        </Typography>
 
-      <Link
-        to="/lesson"
-        className={`${
-          classes.learnMoreLink
-        } MuiButton-containedPrimary MuiButton-root  MuiButtonBase-root`}
-      >
-        Learn More
-      </Link>
+        <Link
+          to="/lesson"
+          className={`${
+            classes.learnMoreLink
+          } MuiButton-containedPrimary MuiButton-root  MuiButtonBase-root`}
+        >
+          Learn More
+        </Link>
 
-      <PastLessons />
-    </section>
-  </Layout>
-)};
+        <PastLessons />
+      </section>
+    </Layout>
+  );
+};
 
 const styles = () => ({
   publishedDate: {
