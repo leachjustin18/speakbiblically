@@ -17,7 +17,7 @@ interface PageContext {
 
 // tslint:disable-next-line:variable-name
 function withRoot(Component: any) {
-  class WithRoot extends React.Component<JSX.Element[] | JSX.Element, {}> {
+  class WithRoot extends React.Component<any, {}> {
     private pageContext: PageContext;
 
     private constructor(props: any) {
@@ -37,10 +37,7 @@ function withRoot(Component: any) {
     public render() {
       // MuiThemeProvider makes the theme available down the React tree thanks to React context.
       return (
-        <MuiThemeProvider
-          theme={this.pageContext.theme}
-          sheetsManager={this.pageContext.sheetsManager}
-        >
+        <MuiThemeProvider theme={this.pageContext.theme}>
           <Component {...this.props} />
         </MuiThemeProvider>
       );
