@@ -9,33 +9,6 @@ import PastLessons from '../components/PastLessons';
 
 interface HomePage extends WithStyles<typeof styles> {}
 
-const styles = () => ({
-  publishedDate: {
-    display: 'block',
-  },
-  learnMoreLink: {
-    display: 'inline-block',
-    textDecoration: 'none',
-    color: '#fff',
-    backgroundColor: '#3f51b5',
-    boxShadow: `0px 1px 5px 0px rgba(0,0,0,0.2),
-      0px 2px 2px 0px rgba(0,0,0,0.14),
-      0px 3px 1px -2px rgba(0,0,0,0.12)`,
-    lineHeight: 1.75,
-    fontFamily: 'Montserrat, Arial',
-    fontWeight: 500,
-    borderRadius: '4px',
-    textTransform: 'uppercase' as 'uppercase',
-    padding: '6px 16px',
-    fontSize: '0.875rem',
-    minWidth: '64px',
-    boxSizing: 'border-box' as 'border-box',
-    '&:hover': {
-      backgroundColor: '#303f9f',
-    },
-  },
-});
-
 const HomePage: FC<HomePage> = ({ classes }) => (
   <Layout>
     <section>
@@ -75,5 +48,32 @@ const HomePage: FC<HomePage> = ({ classes }) => (
     </section>
   </Layout>
 );
+
+const styles = () => ({
+  publishedDate: {
+    display: 'block',
+  },
+  learnMoreLink: {
+    display: 'inline-block',
+    textDecoration: 'none',
+    color: '#fff',
+    backgroundColor: '#3f51b5',
+    boxShadow: `0px 1px 5px 0px rgba(0,0,0,0.2),
+      0px 2px 2px 0px rgba(0,0,0,0.14),
+      0px 3px 1px -2px rgba(0,0,0,0.12)`,
+    lineHeight: 1.75,
+    fontFamily: 'Montserrat, Arial',
+    fontWeight: 500,
+    borderRadius: '4px',
+    textTransform: 'uppercase' as 'uppercase',
+    padding: '6px 16px',
+    fontSize: '0.875rem',
+    minWidth: '64px',
+    boxSizing: 'border-box' as 'border-box',
+    '&:hover': {
+      backgroundColor: '#303f9f',
+    },
+  },
+});
 
 export default withStyles(styles)(HomePage);

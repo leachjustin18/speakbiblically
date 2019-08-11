@@ -10,6 +10,25 @@ interface LayoutProps extends WithStyles<typeof styles> {
   children: JSX.Element[] | JSX.Element;
 }
 
+const Layout: FC<LayoutProps> = ({ classes, children }) => (
+  <main>
+    <Helmet>
+      <html lang="en" />
+      <title>Speak Biblically</title>
+      <meta
+        name="description"
+        content="Welcome to Speak Biblically!  On this site we are concerned about God's truth"
+      />
+    </Helmet>
+
+    <Header />
+
+    <div className={classes.childrenParent}>{children}</div>
+
+    <div className={classes.backGroundImage} />
+  </main>
+);
+
 const styles = () => ({
   backGroundImage: {},
   '@media (min-width: 1025px)': {
@@ -38,24 +57,5 @@ const styles = () => ({
     },
   },
 });
-
-const Layout: FC<LayoutProps> = ({ classes, children }) => (
-  <main>
-    <Helmet>
-      <html lang="en" />
-      <title>Speak Biblically</title>
-      <meta
-        name="description"
-        content="Welcome to Speak Biblically!  On this site we are concerned about God's truth"
-      />
-    </Helmet>
-
-    <Header />
-
-    <div className={classes.childrenParent}>{children}</div>
-
-    <div className={classes.backGroundImage} />
-  </main>
-);
 
 export default withRoot(withStyles(styles)(Layout));

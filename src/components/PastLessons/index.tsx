@@ -11,42 +11,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 interface PastLessons extends WithStyles<typeof styles> {}
 
-const styles = (theme: Theme) => ({
-  pastLessonTitle: {
-    marginTop: '0.35rem',
-  },
-  list: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  publishedDate: {
-    display: 'block',
-  },
-  learnMoreLink: {
-    display: 'inline-block',
-    textDecoration: 'none',
-    color: '#fff',
-    backgroundColor: '#3f51b5',
-    boxShadow: `0px 1px 5px 0px rgba(0,0,0,0.2),
-      0px 2px 2px 0px rgba(0,0,0,0.14),
-      0px 3px 1px -2px rgba(0,0,0,0.12)`,
-    lineHeight: 1.75,
-    fontFamily: 'Montserrat, Arial',
-    fontWeight: 500,
-    borderRadius: '4px',
-    textTransform: 'uppercase',
-    padding: '6px 16px',
-    fontSize: '0.875rem',
-    minWidth: '64px',
-    boxSizing: 'border-box',
-    '&:hover': {
-      backgroundColor: '#303f9f',
-    },
-  },
-  description: {
-    display: 'block',
-  },
-});
-
 const fakePastLessons: {
   title: string;
   description: string;
@@ -121,5 +85,41 @@ const PastLessons: FC<PastLessons> = ({ classes }) => (
     </List>
   </Fragment>
 );
+
+const styles = (theme: Theme) => ({
+  pastLessonTitle: {
+    marginTop: '0.35rem',
+  },
+  list: {
+    backgroundColor: theme.palette.background.paper,
+  },
+  publishedDate: {
+    display: 'block',
+  },
+  learnMoreLink: {
+    display: 'inline-block',
+    textDecoration: 'none',
+    color: '#fff',
+    backgroundColor: '#3f51b5',
+    boxShadow: `0px 1px 5px 0px rgba(0,0,0,0.2),
+      0px 2px 2px 0px rgba(0,0,0,0.14),
+      0px 3px 1px -2px rgba(0,0,0,0.12)`,
+    lineHeight: 1.75,
+    fontFamily: 'Montserrat, Arial',
+    fontWeight: 500,
+    borderRadius: '4px',
+    textTransform: 'uppercase',
+    padding: '6px 16px',
+    fontSize: '0.875rem',
+    minWidth: '64px',
+    boxSizing: 'border-box',
+    '&:hover': {
+      backgroundColor: '#303f9f',
+    },
+  },
+  description: {
+    display: 'block',
+  },
+});
 
 export default withStyles(styles)(PastLessons);

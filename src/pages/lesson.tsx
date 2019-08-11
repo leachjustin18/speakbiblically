@@ -13,6 +13,46 @@ const youTubeOptions: { playerVars: { rel: number } } = {
 
 interface Lesson extends WithStyles<typeof styles> {}
 
+const Lesson: FC<Lesson> = ({ classes }) => (
+  <Layout>
+    <section className={classes.section}>
+      <Typography
+        component="h3"
+        variant="h3"
+        gutterBottom={true}
+        className={classes.title}
+      >
+        Does my church teach the truth?
+      </Typography>
+
+      <div className={classes.youTubeVideoContainer}>
+        <YouTube
+          videoId="GY0Bdt9nLT8"
+          opts={youTubeOptions}
+          className={classes.youTube}
+        />
+      </div>
+
+      <Typography component="p" variant="body1" gutterBottom={true}>
+        In Romans 10:15 ....
+      </Typography>
+
+      <Typography component="h4" variant="h4" gutterBottom={true}>
+        Related Articles:
+      </Typography>
+
+      <ul>
+        <li>
+          <a href="/">How many churches should there be?</a>
+        </li>
+        <li>
+          <a href="/">What do I have to do to be saved?</a>
+        </li>
+      </ul>
+    </section>
+  </Layout>
+);
+
 const styles = () => ({
   title: {},
   youTubeVideoContainer: {},
@@ -54,45 +94,5 @@ const styles = () => ({
     },
   },
 });
-
-const Lesson: FC<Lesson> = ({ classes }) => (
-  <Layout>
-    <section className={classes.section}>
-      <Typography
-        component="h3"
-        variant="h3"
-        gutterBottom={true}
-        className={classes.title}
-      >
-        Does my church teach the truth?
-      </Typography>
-
-      <div className={classes.youTubeVideoContainer}>
-        <YouTube
-          videoId="GY0Bdt9nLT8"
-          opts={youTubeOptions}
-          className={classes.youTube}
-        />
-      </div>
-
-      <Typography component="p" variant="body1" gutterBottom={true}>
-        In Romans 10:15 ....
-      </Typography>
-
-      <Typography component="h4" variant="h4" gutterBottom={true}>
-        Related Articles:
-      </Typography>
-
-      <ul>
-        <li>
-          <a href="/">How many churches should there be?</a>
-        </li>
-        <li>
-          <a href="/">What do I have to do to be saved?</a>
-        </li>
-      </ul>
-    </section>
-  </Layout>
-);
 
 export default withStyles(styles)(Lesson);
