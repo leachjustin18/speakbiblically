@@ -69,7 +69,7 @@ const HomePage: FC<HomePage> = ({ classes }) => {
         </Typography>
 
         <Link
-          to="/lesson"
+          to={`/lesson?id=${recentLessonData.id}`}
           className={`${
             classes.learnMoreLink
           } MuiButton-containedPrimary MuiButton-root  MuiButtonBase-root`}
