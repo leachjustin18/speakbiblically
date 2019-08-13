@@ -33,7 +33,7 @@ const fakePastLessons: {
   },
 ];
 
-interface PastLessons {
+interface PastLessonsInterface {
   pastLessons: {
     edges: [
       {
@@ -50,8 +50,8 @@ interface PastLessons {
 
 const PastLessons: FC<PastLessons> = ({ classes }) => {
 
-  const data:PastLessons = useStaticQuery(graphql`
-    query pastLessons {
+  const data:PastLessonsInterface = useStaticQuery(graphql`
+    query pastLessonsQuery {
       pastLessons: allGoogleSheetLessonsRow(
         filter: { recentlesson: { eq: "N" } }
       ) {
