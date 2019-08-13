@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { Link, graphql, useStaticQuery } from 'gatsby';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { WithStyles } from '@material-ui/core';
@@ -13,7 +14,34 @@ const youTubeOptions: { playerVars: { rel: number } } = {
 
 interface Lesson extends WithStyles<typeof styles> {}
 
-const Lesson: FC<Lesson> = ({ classes }) => (
+const Lesson: FC<Lesson> = ({ classes }) => {
+  const search = window.location.search;
+  
+  const searchId = search.indexOf('id') > -1 && search.split('id=')[1];
+
+  const data = searchId 
+    && useStaticQuery(graphql`
+    query lessonQuery {
+      lessons: allGoogleSheetLessonsRow {
+        edges {
+          node {
+            date
+            title
+            description
+            id
+            youtubeid
+          }
+        }
+      }
+    }
+  `);
+
+  const retrievedLesson = data && data.lessons.edges.find(({node}) => 
+    node.id === searchId
+  ).node;
+
+   if(retrievedLesson) {
+     return (
   <Layout>
     <section className={classes.section}>
       <Typography
@@ -22,12 +50,12 @@ const Lesson: FC<Lesson> = ({ classes }) => (
         gutterBottom={true}
         className={classes.title}
       >
-        Does my church teach the truth?
+        {retrievedLesson.title}
       </Typography>
 
       <div className={classes.youTubeVideoContainer}>
         <YouTube
-          videoId="GY0Bdt9nLT8"
+          videoId={retrievedLesson.youtubeid}
           opts={youTubeOptions}
           className={classes.youTube}
         />
@@ -51,7 +79,19 @@ const Lesson: FC<Lesson> = ({ classes }) => (
       </ul>
     </section>
   </Layout>
-);
+)
+     } 
+
+     else {
+       return (
+       <Layout>
+         <section className={classes.section}>
+         :( Lesson not found.  Please return to <Link to="/">Home Page</Link>
+         </section>
+       </Layout>
+       );
+     }
+};
 
 const styles = () => ({
   title: {},
