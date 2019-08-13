@@ -9,7 +9,7 @@ import PastLessons from '../components/PastLessons';
 
 interface HomePage extends WithStyles<typeof styles> {}
 
-interface RecentLessonProps {
+interface RecentLessonInterface {
   recentLesson: {
     edges: [
       {
@@ -25,7 +25,7 @@ interface RecentLessonProps {
 }
 
 const HomePage: FC<HomePage> = ({ classes }) => {
-  const data: RecentLessonProps = useStaticQuery(graphql`
+  const data: RecentLessonInterface = useStaticQuery(graphql`
     query homePage {
       recentLesson: allGoogleSheetLessonsRow(
         filter: { recentlesson: { eq: "Y" } }
