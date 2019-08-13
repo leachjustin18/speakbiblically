@@ -10,29 +10,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 interface PastLessons extends WithStyles<typeof styles> {}
 
-const fakePastLessons: {
-  title: string;
-  description: string;
-  date: string;
-}[] = [
-  {
-    title: 'Baptizim',
-    description: 'What is baptism?',
-    date: '01/02/2019',
-  },
-  {
-    title: 'What is the right way to pray',
-    description: 'Who should we be praying to ?',
-    date: '12/20/2018',
-  },
-  {
-    title: 'What does God say about divorce and remarriage?',
-    description:
-      'God is very specific about his instructions to use about marriage.',
-    date: '11/03/2018',
-  },
-];
-
 interface PastLessonsInterface {
   pastLessons: {
     edges: [
@@ -49,8 +26,7 @@ interface PastLessonsInterface {
 }
 
 const PastLessons: FC<PastLessons> = ({ classes }) => {
-
-  const data:PastLessonsInterface = useStaticQuery(graphql`
+  const data: PastLessonsInterface = useStaticQuery(graphql`
     query pastLessonsQuery {
       pastLessons: allGoogleSheetLessonsRow(
         filter: { recentlesson: { eq: "N" } }
@@ -69,58 +45,62 @@ const PastLessons: FC<PastLessons> = ({ classes }) => {
 
   const pastLessonsData = data.pastLessons ? data.pastLessons.edges : null;
 
- if(pastLessonsData) { return (
-  <Fragment>
-    <Typography
-      component="h3"
-      variant="h3"
-      gutterBottom={true}
-      className={classes.pastLessonTitle}
-    >
-      Past Lessons
-    </Typography>
+  if (pastLessonsData) {
+    return (
+      <Fragment>
+        <Typography
+          component="h3"
+          variant="h3"
+          gutterBottom={true}
+          className={classes.pastLessonTitle}
+        >
+          Past Lessons
+        </Typography>
 
-    <List className={classes.list}>
-      {pastLessonsData.map(({node}, index) => (
-        <Fragment key={node.id}>
+        <List className={classes.list}>
+          {pastLessonsData.map(({ node }, index) => (
+            <Fragment key={node.id}>
+              <ListItem alignItems="flex-start">
+                <ListItemText
+                  primary={node.title}
+                  secondary={
+                    <Fragment>
+                      <Typography
+                        variant="body2"
+                        component="span"
+                        gutterBottom={true}
+                        className={classes.description}
+                      >
+                        {node.description}
+                      </Typography>
 
-          <ListItem alignItems="flex-start">
-            <ListItemText
-              primary={node.title}
-              secondary={
-                <Fragment>
-                  <Typography
-                    variant="body2"
-                    component="span"
-                    gutterBottom={true}
-                    className={classes.description}
-                  >
-                    {node.description}
-                  </Typography>
+                      <Typography
+                        variant="caption"
+                        component="span"
+                        gutterBottom={true}
+                        className={classes.publishedDate}
+                      >
+                        Date: {node.date}
+                      </Typography>
 
-                  <Typography
-                    variant="caption"
-                    component="span"
-                    gutterBottom={true}
-                    className={classes.publishedDate}
-                  >
-                    Date: {node.date}
-                  </Typography>
+                      <Link to="/lesson" className={classes.learnMoreLink}>
+                        Learn More
+                      </Link>
+                    </Fragment>
+                  }
+                />
+              </ListItem>
 
-                  <Link to="/lesson" className={classes.learnMoreLink}>
-                    Learn More
-                  </Link>
-                </Fragment>
-              }
-            />
-          </ListItem>
+              {fakePastLessons.length !== index + 1 && <Divider />}
+            </Fragment>
+          ))}
+        </List>
+      </Fragment>
+    );
+  }
 
-          {fakePastLessons.length !== index + 1 && <Divider />}
-        </Fragment>
-      ))}
-    </List>
-  </Fragment>
-)} else { return (null)}};
+  return null;
+};
 
 const styles = (theme: Theme) => ({
   pastLessonTitle: {
