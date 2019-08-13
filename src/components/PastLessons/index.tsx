@@ -91,7 +91,7 @@ const PastLessons: FC<PastLessons> = ({ classes }) => {
                 />
               </ListItem>
 
-              {fakePastLessons.length !== index + 1 && <Divider />}
+              {pastLessonsData.length !== index + 1 && <Divider />}
             </Fragment>
           ))}
         </List>
