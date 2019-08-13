@@ -1,5 +1,5 @@
 import React, { FC, Fragment } from 'react';
-import { Link } from 'gatsby';
+import { Link, graphql, useStaticQuery } from 'gatsby';
 import Typography from '@material-ui/core/Typography';
 import { withStyles, Theme } from '@material-ui/core/styles';
 import { WithStyles } from '@material-ui/core';
@@ -33,7 +33,43 @@ const fakePastLessons: {
   },
 ];
 
-const PastLessons: FC<PastLessons> = ({ classes }) => (
+interface PastLessons {
+  pastLessons: {
+    edges: [
+      {
+        node: {
+          date: string;
+          title: string;
+          description: string;
+          id: string;
+        };
+      }
+    ];
+  };
+}
+
+const PastLessons: FC<PastLessons> = ({ classes }) => {
+
+  const data:PastLessons = useStaticQuery(graphql`
+    query pastLessons {
+      pastLessons: allGoogleSheetLessonsRow(
+        filter: { recentlesson: { eq: "N" } }
+      ) {
+        edges {
+          node {
+            date
+            title
+            description
+            id
+          }
+        }
+      }
+    }
+  `);
+
+  const pastLessonsData = data.pastLessons ? data.pastLessons.edges : null;
+
+ if(pastLessonsData) { return (
   <Fragment>
     <Typography
       component="h3"
@@ -45,11 +81,12 @@ const PastLessons: FC<PastLessons> = ({ classes }) => (
     </Typography>
 
     <List className={classes.list}>
-      {fakePastLessons.map((lesson, index) => (
-        <Fragment key={index}>
+      {pastLessonsData.map(({node}, index) => (
+        <Fragment key={node.id}>
+
           <ListItem alignItems="flex-start">
             <ListItemText
-              primary={lesson.title}
+              primary={node.title}
               secondary={
                 <Fragment>
                   <Typography
@@ -58,7 +95,7 @@ const PastLessons: FC<PastLessons> = ({ classes }) => (
                     gutterBottom={true}
                     className={classes.description}
                   >
-                    {lesson.description}
+                    {node.description}
                   </Typography>
 
                   <Typography
@@ -67,7 +104,7 @@ const PastLessons: FC<PastLessons> = ({ classes }) => (
                     gutterBottom={true}
                     className={classes.publishedDate}
                   >
-                    Date: {lesson.date}
+                    Date: {node.date}
                   </Typography>
 
                   <Link to="/lesson" className={classes.learnMoreLink}>
@@ -83,7 +120,7 @@ const PastLessons: FC<PastLessons> = ({ classes }) => (
       ))}
     </List>
   </Fragment>
-);
+)} else { return (null)}};
 
 const styles = (theme: Theme) => ({
   pastLessonTitle: {
