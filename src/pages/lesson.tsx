@@ -62,7 +62,7 @@ const Lesson: FC<Lesson> = ({ classes }) => {
       </div>
 
       <Typography component="p" variant="body1" gutterBottom={true}>
-        In Romans 10:15 ....
+        {retrievedLesson.description}
       </Typography>
 
       <Typography component="h4" variant="h4" gutterBottom={true}>
