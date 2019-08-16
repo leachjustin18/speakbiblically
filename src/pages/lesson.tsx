@@ -3,6 +3,7 @@ import { Link, graphql, useStaticQuery } from 'gatsby';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { WithStyles } from '@material-ui/core';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import YouTube from 'react-youtube';
 import Layout from '../layout';
 
@@ -14,83 +15,104 @@ const youTubeOptions: { playerVars: { rel: number } } = {
 
 interface Lesson extends WithStyles<typeof styles> {}
 
-const Lesson: FC<Lesson> = ({ classes }) => {
-  const search = window.location.search;
-  
-  const searchId = search.indexOf('id') > -1 && search.split('id=')[1];
+type LessonsInterface = {
+  lessons: {
+    edges: [
+      {
+        node: {
+          date: string;
+          title: string;
+          description: string;
+          id: string;
+          youtubeid: string;
+        };
+      }
+    ];
+  };
+};
 
-  const data = searchId 
-    && useStaticQuery(graphql`
-    query lessonQuery {
-      lessons: allGoogleSheetLessonsRow {
-        edges {
-          node {
-            date
-            title
-            description
-            id
-            youtubeid
+const Lesson: FC<Lesson> = ({ classes }) => {
+  const getSearchId = (): string | false => {
+    const search = window.location.search;
+
+    return search.indexOf('id') > -1 && search.split('id=')[1];
+  };
+
+  const data: LessonsInterface =
+    useStaticQuery(graphql`
+      query lessonQuery {
+        lessons: allGoogleSheetLessonsRow {
+          edges {
+            node {
+              date
+              title
+              description
+              id
+              youtubeid
+            }
           }
         }
       }
-    }
-  `);
+    `);
 
-  const retrievedLesson = data && data.lessons.edges.find(({node}) => 
-    node.id === searchId
-  ).node;
+  const retrievedLesson = data && getSearchId() ? data.lessons.edges.find(({ node }) => node.id === getSearchId()).node : false;
 
-   if(retrievedLesson) {
-     return (
-  <Layout>
-    <section className={classes.section}>
-      <Typography
-        component="h3"
-        variant="h3"
-        gutterBottom={true}
-        className={classes.title}
-      >
-        {retrievedLesson.title}
-      </Typography>
+  if (retrievedLesson) {
+    return (
+      <Layout>
+        <section className={classes.section}>
+          <Typography
+            component="h3"
+            variant="h3"
+            gutterBottom={true}
+            className={classes.title}
+          >
+            {retrievedLesson.title}
+          </Typography>
 
-      <div className={classes.youTubeVideoContainer}>
-        <YouTube
-          videoId={retrievedLesson.youtubeid}
-          opts={youTubeOptions}
-          className={classes.youTube}
-        />
-      </div>
+          <div className={classes.youTubeVideoContainer}>
+            <YouTube
+              videoId={retrievedLesson.youtubeid}
+              opts={youTubeOptions}
+              className={classes.youTube}
+            />
+          </div>
 
-      <Typography component="p" variant="body1" gutterBottom={true}>
-        {retrievedLesson.description}
-      </Typography>
+          <Typography component="p" variant="body1" gutterBottom={true}>
+            {retrievedLesson.description}
+          </Typography>
 
-      <Typography component="h4" variant="h4" gutterBottom={true}>
-        Related Articles:
-      </Typography>
+          <Typography component="h4" variant="h4" gutterBottom={true}>
+            Related Articles:
+          </Typography>
 
-      <ul>
-        <li>
-          <a href="/">How many churches should there be?</a>
-        </li>
-        <li>
-          <a href="/">What do I have to do to be saved?</a>
-        </li>
-      </ul>
-    </section>
-  </Layout>
-)
-     } 
+          <ul>
+            <li>
+              <a href="/">How many churches should there be?</a>
+            </li>
+            <li>
+              <a href="/">What do I have to do to be saved?</a>
+            </li>
+          </ul>
+        </section>
+      </Layout>
+    );
+  }
 
-     else {
-       return (
-       <Layout>
-         <section className={classes.section}>
-         :( Lesson not found.  Please return to <Link to="/">Home Page</Link>
-         </section>
-       </Layout>
-       );
-     }
+  return (
+    <Layout>
+      <section className={classes.section}>
+      <Typography component="h2" variant="h2" gutterBottom={true}>
+      Uh oh!
+        </Typography>
+        <Typography variant="h4" component="h3" gutterBottom={true}>
+
+        We're sorry, lesson not found.
+        </Typography>
+        Please return to the <Link to="/" className={classes.homeLink}>Home Page</Link> and view one of our other lesson(s).
+      </section>
+    </Layout>
+  );
 };
 
 const styles = () => ({
@@ -98,6 +120,9 @@ const styles = () => ({
   youTubeVideoContainer: {},
   youTube: {},
   section: {},
+  homeLink: {
+    color: fade('#000', 0.8),
+  },
   '@media (min-width: 48rem)': {
     title: {
       textAlign: 'center' as 'center',
