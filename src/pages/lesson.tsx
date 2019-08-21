@@ -54,10 +54,13 @@ const Lesson: FC<Lesson> = ({ classes }) => {
     }
   `);
 
-  const retrievedLesson =
-    data && getSearchId()
-      ? data.lessons.edges.find(({ node }) => node.id === getSearchId()).node
-      : false;
+  const retrievedLesson = () => {
+    if (Object.keys(data.lessons).length && getSearchId()) {
+      return data.lessons.edges.find(({ node }) => node.id === getSearchId());
+    }
+
+    return false;
+  };
 
   if (retrievedLesson) {
     return (
