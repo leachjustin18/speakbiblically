@@ -38,24 +38,26 @@ const Lesson: FC<Lesson> = ({ classes }) => {
     return search.indexOf('id') > -1 && search.split('id=')[1];
   };
 
-  const data: LessonsInterface =
-    useStaticQuery(graphql`
-      query lessonQuery {
-        lessons: allGoogleSheetLessonsRow {
-          edges {
-            node {
-              date
-              title
-              description
-              id
-              youtubeid
-            }
+  const data: LessonsInterface = useStaticQuery(graphql`
+    query lessonQuery {
+      lessons: allGoogleSheetLessonsRow {
+        edges {
+          node {
+            date
+            title
+            description
+            id
+            youtubeid
           }
         }
       }
-    `);
+    }
+  `);
 
-  const retrievedLesson = data && getSearchId() ? data.lessons.edges.find(({ node }) => node.id === getSearchId()).node : false;
+  const retrievedLesson =
+    data && getSearchId()
+      ? data.lessons.edges.find(({ node }) => node.id === getSearchId()).node
+      : false;
 
   if (retrievedLesson) {
     return (
@@ -102,14 +104,17 @@ const Lesson: FC<Lesson> = ({ classes }) => {
   return (
     <Layout>
       <section className={classes.section}>
-      <Typography component="h2" variant="h2" gutterBottom={true}>
-      Uh oh!
+        <Typography component="h2" variant="h2" gutterBottom={true}>
+          Uh oh!
         </Typography>
         <Typography variant="h4" component="h3" gutterBottom={true}>
-
-        We're sorry, lesson not found.
+          We're sorry, lesson not found.
         </Typography>
-        Please return to the <Link to="/" className={classes.homeLink}>Home Page</Link> and view one of our other lesson(s).
+        Please return to the{' '}
+        <Link to="/" className={classes.homeLink}>
+          Home Page
+        </Link>{' '}
+        and view one of our other lesson(s).
       </section>
     </Layout>
   );
