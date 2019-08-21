@@ -23,7 +23,7 @@ type PastLessonsQuery = {
       }
     ];
   };
-}
+};
 
 const PastLessons: FC<PastLessons> = ({ classes }) => {
   const data: PastLessonsQuery = useStaticQuery(graphql`
@@ -69,7 +69,7 @@ const PastLessons: FC<PastLessons> = ({ classes }) => {
                         variant="body2"
                         component="span"
                         gutterBottom={true}
-                        className={classes.description}
+                        className={classes.lessonDescription}
                       >
                         {node.description}
                       </Typography>
@@ -112,12 +112,12 @@ const styles = (theme: Theme) => ({
   publishedDate: {
     display: 'block',
   },
-  description: {
+  lessonDescription: {
     display: 'block',
+    maxWidth: 400,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap',
-    maxWidth: 500
+    whiteSpace: 'nowrap' as 'nowrap',
   },
   learnMoreLink: {
     display: 'inline-block',
