@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 interface PastLessons extends WithStyles<typeof styles> {}
 
-interface PastLessonsInterface {
+type PastLessonsQuery = {
   pastLessons: {
     edges: [
       {
@@ -26,7 +26,7 @@ interface PastLessonsInterface {
 }
 
 const PastLessons: FC<PastLessons> = ({ classes }) => {
-  const data: PastLessonsInterface = useStaticQuery(graphql`
+  const data: PastLessonsQuery = useStaticQuery(graphql`
     query pastLessonsQuery {
       pastLessons: allGoogleSheetLessonsRow(
         filter: { recentlesson: { eq: "N" } }
@@ -114,6 +114,10 @@ const styles = (theme: Theme) => ({
   },
   description: {
     display: 'block',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    maxWidth: 500
   },
   learnMoreLink: {
     display: 'inline-block',
