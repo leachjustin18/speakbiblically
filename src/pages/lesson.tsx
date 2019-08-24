@@ -104,7 +104,7 @@ const Lesson: FC<Lesson> = ({ classes }) => {
         </section>
       </Layout>
     );
-}
+  }
 
   return (
     <Layout>
