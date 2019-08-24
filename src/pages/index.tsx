@@ -55,7 +55,11 @@ const HomePage: FC<HomePage> = ({ classes }) => {
           <strong>{recentLessonData.title}</strong>
         </Typography>
 
-        <Typography variant="body1" gutterBottom={true} className={classes.lessonDescription}>
+        <Typography
+          variant="body1"
+          gutterBottom={true}
+          className={classes.lessonDescription}
+        >
           {recentLessonData.description}
         </Typography>
 
@@ -113,7 +117,7 @@ const styles = () => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap' as 'nowrap',
-  }
+  },
 });
 
 export default withStyles(styles)(HomePage);
