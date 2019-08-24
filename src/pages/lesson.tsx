@@ -15,7 +15,7 @@ const youTubeOptions: { playerVars: { rel: number } } = {
 
 interface Lesson extends WithStyles<typeof styles> {}
 
-type LessonsInterface = {
+type LessonType = {
   lessons: {
     edges: [
       {
@@ -38,7 +38,7 @@ const Lesson: FC<Lesson> = ({ classes }) => {
     return search.indexOf('id') > -1 && search.split('id=')[1];
   };
 
-  const data: LessonsInterface = useStaticQuery(graphql`
+  const data: LessonType = useStaticQuery(graphql`
     query lessonQuery {
       lessons: allGoogleSheetLessonsRow {
         edges {
@@ -54,7 +54,7 @@ const Lesson: FC<Lesson> = ({ classes }) => {
     }
   `);
 
-  const retrievedLesson = () => {
+  const getLessons = () => {
     if (Object.keys(data.lessons).length && getSearchId()) {
       return data.lessons.edges.find(({ node }) => node.id === getSearchId());
     }
@@ -62,7 +62,9 @@ const Lesson: FC<Lesson> = ({ classes }) => {
     return false;
   };
 
-  if (retrievedLesson) {
+  const retrievedLessons = getLessons();
+
+  if (retrievedLessons) {
     return (
       <Layout>
         <section className={classes.section}>
@@ -72,19 +74,19 @@ const Lesson: FC<Lesson> = ({ classes }) => {
             gutterBottom={true}
             className={classes.title}
           >
-            {retrievedLesson.title}
+            {retrievedLessons.node.title}
           </Typography>
 
           <div className={classes.youTubeVideoContainer}>
             <YouTube
-              videoId={retrievedLesson.youtubeid}
+              videoId={retrievedLessons.node.youtubeid}
               opts={youTubeOptions}
               className={classes.youTube}
             />
           </div>
 
           <Typography component="p" variant="body1" gutterBottom={true}>
-            {retrievedLesson.description}
+            {retrievedLessons.node.description}
           </Typography>
 
           <Typography component="h4" variant="h4" gutterBottom={true}>
@@ -102,7 +104,7 @@ const Lesson: FC<Lesson> = ({ classes }) => {
         </section>
       </Layout>
     );
-  }
+}
 
   return (
     <Layout>
