@@ -56,20 +56,20 @@ const HomePage: FC<HomePage> = ({ classes }) => {
         </Typography>
 
         <Typography
-          variant="body1"
-          gutterBottom={true}
-          className={classes.lessonDescription}
-        >
-          {recentLessonData.description}
-        </Typography>
-
-        <Typography
           variant="caption"
           component="span"
           className={classes.publishedDate}
           gutterBottom={true}
         >
           Date: {recentLessonData.date}
+        </Typography>
+
+        <Typography
+          variant="body1"
+          gutterBottom={true}
+          className={classes.lessonDescription}
+        >
+          {recentLessonData.description}
         </Typography>
 
         <Link
