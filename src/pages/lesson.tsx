@@ -82,7 +82,7 @@ const Lesson: FC<Lesson> = ({ classes }) => {
 
       return (
         <li key={index}>
-          <a href={url} rel="noopener nofollow" target="_blank">
+          <a href={url} rel="noopener nofollow" target="_blank" style={{color: fade('#000', 0.8)}}>
             {name}
           </a>
         </li>
@@ -163,6 +163,9 @@ const styles = () => ({
   youTubeVideoContainer: {},
   youTube: {},
   section: {},
+  relatedArticleLinks: {
+    color: fade('#000', 0.8),
+  },
   homeLink: {
     color: fade('#000', 0.8),
   },
