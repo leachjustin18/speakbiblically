@@ -5,6 +5,7 @@
   "main": "src/layout/index.tsx",
   "scripts": {
     "develop": "gatsby develop",
+    "netlify": "gatsby build",
     "start": "npm run develop",
     "tslint": "tslint --fix -c ./tslint.json src/**/*{.ts,.tsx}",
     "test": "jest"
