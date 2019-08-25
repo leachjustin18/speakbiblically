@@ -54,7 +54,7 @@ module.exports = {
       options: {
           spreadsheetId: '1bKMxl15efhuFFtppUWQwzppDALj68VsCWbljYmym7A8',
           worksheetTitle: 'Lessons',
-          credentials: require('./client_secret.json')
+          credentials: require('./src/utils/client_secret.json')
       }
   },
     `gatsby-plugin-offline`,
