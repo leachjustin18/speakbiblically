@@ -6,6 +6,21 @@ import { WithStyles } from '@material-ui/core';
 
 interface Header extends WithStyles<typeof styles> {}
 
+const Header: FC<Header> = ({ classes }) => (
+  <header className={classes.header}>
+    <Typography
+      component="h1"
+      variant="h1"
+      align="center"
+      className={classes.title}
+    >
+      <Link to="/" className={classes.titleLink}>
+        Speak Biblically
+      </Link>
+    </Typography>
+  </header>
+);
+
 const styles = () => ({
   header: {
     backgroundColor: '#454040',
@@ -22,20 +37,5 @@ const styles = () => ({
     textDecoration: 'none',
   },
 });
-
-const Header: FC<Header> = ({ classes }) => (
-  <header className={classes.header}>
-    <Typography
-      component="h1"
-      variant="h1"
-      align="center"
-      className={classes.title}
-    >
-      <Link to="/" className={classes.titleLink}>
-        Speak Biblically
-      </Link>
-    </Typography>
-  </header>
-);
 
 export default withStyles(styles)(Header);

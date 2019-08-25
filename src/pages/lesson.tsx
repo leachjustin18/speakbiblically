@@ -1,7 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
+import { Link, graphql, useStaticQuery } from 'gatsby';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { WithStyles } from '@material-ui/core';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import YouTube from 'react-youtube';
 import Layout from '../layout';
 
@@ -13,11 +16,164 @@ const youTubeOptions: { playerVars: { rel: number } } = {
 
 interface Lesson extends WithStyles<typeof styles> {}
 
+type LessonType = {
+  lessons: {
+    edges: [
+      {
+        node: {
+          date: string;
+          title: string;
+          description: string;
+          id: string;
+          youtubeid: string;
+          relatedlessons: string;
+        };
+      }
+    ];
+  };
+};
+
+const Lesson: FC<Lesson> = ({ classes }) => {
+  const [search, setSearch] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setSearch(window.location.search);
+    setIsLoading(false);
+    // tslint:disable-next-line: align
+  }, []);
+
+  const getSearchId = (): string | false => {
+    return search && search.indexOf('id') > -1 && search.split('id=')[1];
+  };
+
+  const data: LessonType = useStaticQuery(graphql`
+    query lessonQuery {
+      lessons: allGoogleSheetLessonsRow {
+        edges {
+          node {
+            date
+            title
+            description
+            id
+            youtubeid
+            relatedlessons
+          }
+        }
+      }
+    }
+  `);
+
+  const getLessons = () => {
+    if (Object.keys(data.lessons).length && getSearchId()) {
+      return data.lessons.edges.find(({ node }) => node.id === getSearchId());
+    }
+
+    return false;
+  };
+
+  const relatedLessons = (relatedLessons: string) => {
+    const relatedLessonsSplit = relatedLessons.split(';');
+
+    return relatedLessonsSplit.map((relatedLesson, index) => {
+      const relatedLessonSplit = relatedLesson.split(',');
+      const name = relatedLessonSplit[0].trim();
+      const url = relatedLessonSplit[1].trim();
+
+      return (
+        <li key={index}>
+          <a
+            href={url}
+            rel="noopener nofollow"
+            target="_blank"
+            style={{ color: fade('#000', 0.8) }}
+          >
+            {name}
+          </a>
+        </li>
+      );
+    });
+  };
+
+  const retrievedLessons = getLessons();
+
+  if (isLoading) {
+    return (
+      <Layout>
+        <section className={classes.section}>
+          <LinearProgress variant="query" />
+        </section>
+      </Layout>
+    );
+  }
+
+  if (retrievedLessons && !isLoading) {
+    return (
+      <Layout>
+        <section className={classes.section}>
+          <Typography
+            component="h3"
+            variant="h3"
+            gutterBottom={true}
+            className={classes.title}
+          >
+            {retrievedLessons.node.title}
+          </Typography>
+
+          <div className={classes.youTubeVideoContainer}>
+            <YouTube
+              videoId={retrievedLessons.node.youtubeid}
+              opts={youTubeOptions}
+              className={classes.youTube}
+            />
+          </div>
+
+          <Typography component="p" variant="body1" gutterBottom={true}>
+            {retrievedLessons.node.description}
+          </Typography>
+
+          {retrievedLessons.node.relatedlessons !== 'none' && (
+            <Fragment>
+              <Typography component="h4" variant="h4" gutterBottom={true}>
+                Related Articles:
+              </Typography>
+              <ul>{relatedLessons(retrievedLessons.node.relatedlessons)}</ul>
+            </Fragment>
+          )}
+        </section>
+      </Layout>
+    );
+  }
+  return (
+    <Layout>
+      <section className={classes.section}>
+        <Typography component="h2" variant="h2" gutterBottom={true}>
+          Uh oh!
+        </Typography>
+        <Typography variant="h4" component="h3" gutterBottom={true}>
+          We're sorry, lesson not found.
+        </Typography>
+        Please return to the{' '}
+        <Link to="/" className={classes.homeLink}>
+          Home Page
+        </Link>{' '}
+        and view one of our other lesson(s).
+      </section>
+    </Layout>
+  );
+};
+
 const styles = () => ({
   title: {},
   youTubeVideoContainer: {},
   youTube: {},
   section: {},
+  relatedArticleLinks: {
+    color: fade('#000', 0.8),
+  },
+  homeLink: {
+    color: fade('#000', 0.8),
+  },
   '@media (min-width: 48rem)': {
     title: {
       textAlign: 'center' as 'center',
@@ -54,45 +210,5 @@ const styles = () => ({
     },
   },
 });
-
-const Lesson: FC<Lesson> = ({ classes }) => (
-  <Layout>
-    <section className={classes.section}>
-      <Typography
-        component="h3"
-        variant="h3"
-        gutterBottom={true}
-        className={classes.title}
-      >
-        Does my church teach the truth?
-      </Typography>
-
-      <div className={classes.youTubeVideoContainer}>
-        <YouTube
-          videoId="GY0Bdt9nLT8"
-          opts={youTubeOptions}
-          className={classes.youTube}
-        />
-      </div>
-
-      <Typography component="p" variant="body1" gutterBottom={true}>
-        In Romans 10:15 ....
-      </Typography>
-
-      <Typography component="h4" variant="h4" gutterBottom={true}>
-        Related Articles:
-      </Typography>
-
-      <ul>
-        <li>
-          <a href="/">How many churches should there be?</a>
-        </li>
-        <li>
-          <a href="/">What do I have to do to be saved?</a>
-        </li>
-      </ul>
-    </section>
-  </Layout>
-);
 
 export default withStyles(styles)(Lesson);

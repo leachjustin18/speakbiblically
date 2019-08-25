@@ -2,12 +2,90 @@ import React, { FC } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { WithStyles } from '@material-ui/core';
-import { Link } from 'gatsby';
+import { Link, graphql, useStaticQuery } from 'gatsby';
 
 import Layout from '../layout';
 import PastLessons from '../components/PastLessons';
 
 interface HomePage extends WithStyles<typeof styles> {}
+
+interface RecentLessonInterface {
+  recentLesson: {
+    edges: [
+      {
+        node: {
+          date: string;
+          title: string;
+          description: string;
+          id: number;
+        };
+      }
+    ];
+  };
+}
+
+const HomePage: FC<HomePage> = ({ classes }) => {
+  const data: RecentLessonInterface = useStaticQuery(graphql`
+    query homePage {
+      recentLesson: allGoogleSheetLessonsRow(
+        filter: { recentlesson: { eq: "Y" } }
+      ) {
+        edges {
+          node {
+            date
+            title
+            description
+            id
+          }
+        }
+      }
+    }
+  `);
+
+  const recentLessonData = data.recentLesson.edges[0].node;
+
+  return (
+    <Layout>
+      <section>
+        <Typography component="h2" variant="h2" gutterBottom={true}>
+          Recent Lesson
+        </Typography>
+
+        <Typography variant="subtitle2" component="p" gutterBottom={true}>
+          <strong>{recentLessonData.title}</strong>
+        </Typography>
+
+        <Typography
+          variant="caption"
+          component="span"
+          className={classes.publishedDate}
+          gutterBottom={true}
+        >
+          Date: {recentLessonData.date}
+        </Typography>
+
+        <Typography
+          variant="body1"
+          gutterBottom={true}
+          className={classes.lessonDescription}
+        >
+          {recentLessonData.description}
+        </Typography>
+
+        <Link
+          to={`/lesson?id=${recentLessonData.id}`}
+          className={`${
+            classes.learnMoreLink
+          } MuiButton-containedPrimary MuiButton-root  MuiButtonBase-root`}
+        >
+          Learn More
+        </Link>
+
+        <PastLessons />
+      </section>
+    </Layout>
+  );
+};
 
 const styles = () => ({
   publishedDate: {
@@ -34,46 +112,12 @@ const styles = () => ({
       backgroundColor: '#303f9f',
     },
   },
+  lessonDescription: {
+    maxWidth: 1000,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap' as 'nowrap',
+  },
 });
-
-const HomePage: FC<HomePage> = ({ classes }) => (
-  <Layout>
-    <section>
-      <Typography component="h2" variant="h2" gutterBottom={true}>
-        Recent Lesson
-      </Typography>
-
-      <Typography variant="subtitle2" component="p" gutterBottom={true}>
-        <strong>Does my church teach the truth?</strong>
-      </Typography>
-
-      <Typography variant="body1" gutterBottom={true}>
-        With some many different kinds of churches these days, this can be a
-        hard question to answer. What's important is we look to see what the
-        Bible says about it ...
-      </Typography>
-
-      <Typography
-        variant="caption"
-        component="span"
-        className={classes.publishedDate}
-        gutterBottom={true}
-      >
-        Date: 03/12/2019
-      </Typography>
-
-      <Link
-        to="/lesson"
-        className={`${
-          classes.learnMoreLink
-        } MuiButton-containedPrimary MuiButton-root  MuiButtonBase-root`}
-      >
-        Learn More
-      </Link>
-
-      <PastLessons />
-    </section>
-  </Layout>
-);
 
 export default withStyles(styles)(HomePage);
