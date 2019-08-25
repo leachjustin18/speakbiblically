@@ -3,8 +3,6 @@ import { StyleSheet } from 'jss';
 import { MuiThemeProvider, Theme } from '@material-ui/core/styles';
 import getPageContext from './utils/getPageContext';
 
-import { StylesCreator } from '@material-ui/core/styles/withStyles';
-
 interface SheetManagerTheme {
   refs: number;
   sheet: StyleSheet<string>;
@@ -12,7 +10,7 @@ interface SheetManagerTheme {
 
 interface PageContext {
   theme: Theme;
-  sheetsManager: Map<StylesCreator, Map<Theme, SheetManagerTheme>>;
+  sheetsManager: Map<Theme, SheetManagerTheme>;
 }
 
 // tslint:disable-next-line:variable-name
