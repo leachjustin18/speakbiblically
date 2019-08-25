@@ -82,7 +82,12 @@ const Lesson: FC<Lesson> = ({ classes }) => {
 
       return (
         <li key={index}>
-          <a href={url} rel="noopener nofollow" target="_blank" style={{color: fade('#000', 0.8)}}>
+          <a
+            href={url}
+            rel="noopener nofollow"
+            target="_blank"
+            style={{ color: fade('#000', 0.8) }}
+          >
             {name}
           </a>
         </li>
