@@ -1,9 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
 import { Link, graphql, useStaticQuery } from 'gatsby';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import { WithStyles } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import YouTube from 'react-youtube';
 import Layout from '../layout';
 
@@ -25,6 +26,7 @@ type LessonType = {
           description: string;
           id: string;
           youtubeid: string;
+          relatedlessons: string;
         };
       }
     ];
@@ -32,10 +34,17 @@ type LessonType = {
 };
 
 const Lesson: FC<Lesson> = ({ classes }) => {
-  const getSearchId = (): string | false => {
-    const search = window.location.search;
+  const [search, setSearch] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
-    return search.indexOf('id') > -1 && search.split('id=')[1];
+  useEffect(() => {
+    setSearch(window.location.search);
+    setIsLoading(false);
+    // tslint:disable-next-line: align
+  }, []);
+
+  const getSearchId = (): string | false => {
+    return search && search.indexOf('id') > -1 && search.split('id=')[1];
   };
 
   const data: LessonType = useStaticQuery(graphql`
@@ -48,6 +57,7 @@ const Lesson: FC<Lesson> = ({ classes }) => {
             description
             id
             youtubeid
+            relatedlessons
           }
         }
       }
@@ -62,9 +72,37 @@ const Lesson: FC<Lesson> = ({ classes }) => {
     return false;
   };
 
+  const relatedLessons = (relatedLessons: string) => {
+    const relatedLessonsSplit = relatedLessons.split(';');
+
+    return relatedLessonsSplit.map((relatedLesson, index) => {
+      const relatedLessonSplit = relatedLesson.split(',');
+      const name = relatedLessonSplit[0].trim();
+      const url = relatedLessonSplit[1].trim();
+
+      return (
+        <li key={index}>
+          <a href={url} rel="noopener nofollow" target="_blank">
+            {name}
+          </a>
+        </li>
+      );
+    });
+  };
+
   const retrievedLessons = getLessons();
 
-  if (retrievedLessons) {
+  if (isLoading) {
+    return (
+      <Layout>
+        <section className={classes.section}>
+          <LinearProgress variant="query" />
+        </section>
+      </Layout>
+    );
+  }
+
+  if (retrievedLessons && !isLoading) {
     return (
       <Layout>
         <section className={classes.section}>
@@ -89,23 +127,18 @@ const Lesson: FC<Lesson> = ({ classes }) => {
             {retrievedLessons.node.description}
           </Typography>
 
-          <Typography component="h4" variant="h4" gutterBottom={true}>
-            Related Articles:
-          </Typography>
-
-          <ul>
-            <li>
-              <a href="/">How many churches should there be?</a>
-            </li>
-            <li>
-              <a href="/">What do I have to do to be saved?</a>
-            </li>
-          </ul>
+          {retrievedLessons.node.relatedlessons !== 'none' && (
+            <Fragment>
+              <Typography component="h4" variant="h4" gutterBottom={true}>
+                Related Articles:
+              </Typography>
+              <ul>{relatedLessons(retrievedLessons.node.relatedlessons)}</ul>
+            </Fragment>
+          )}
         </section>
       </Layout>
     );
   }
-
   return (
     <Layout>
       <section className={classes.section}>
