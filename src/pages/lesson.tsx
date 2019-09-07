@@ -6,6 +6,7 @@ import { WithStyles } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import YouTube from 'react-youtube';
+import Helmet from 'react-helmet';
 import Layout from '../layout';
 
 const youTubeOptions: { playerVars: { rel: number } } = {
@@ -111,9 +112,17 @@ const Lesson: FC<Lesson> = ({ classes }) => {
     return (
       <Layout>
         <section className={classes.section}>
+          <Helmet>
+            <title>{retrievedLessons.node.title}</title>
+            <meta
+              name="description"
+              content={retrievedLessons.node.description}
+            />
+          </Helmet>
+
           <Typography
-            component="h3"
-            variant="h3"
+            component="h2"
+            variant="h2"
             gutterBottom={true}
             className={classes.title}
           >
