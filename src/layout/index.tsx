@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import Helmet from 'react-helmet';
 import { withStyles } from '@material-ui/core/styles';
 import { WithStyles } from '@material-ui/core';
-import withRoot from '../withRoot';
 import Header from '../components/Header';
 import Bible from '../images/Bible.jpg';
 
@@ -52,10 +51,10 @@ const styles = () => ({
   '@media (min-width: 768px)': {
     childrenParent: {
       maxWidth: '1030px',
-      backgroundColor: 'rgba(255, 255, 255, .7)',
+      backgroundColor: 'rgba(255, 255, 255, .8)',
       margin: '0 auto',
     },
   },
 });
 
-export default withRoot(withStyles(styles)(Layout));
+export default withStyles(styles)(Layout);

@@ -74,9 +74,7 @@ const HomePage: FC<HomePage> = ({ classes }) => {
 
         <Link
           to={`/lesson?id=${recentLessonData.id}`}
-          className={`${
-            classes.learnMoreLink
-          } MuiButton-containedPrimary MuiButton-root  MuiButtonBase-root`}
+          className={`${classes.learnMoreLink} MuiButton-containedPrimary MuiButton-root  MuiButtonBase-root`}
         >
           Learn More
         </Link>

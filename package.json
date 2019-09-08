@@ -1,84 +1,63 @@
 {
   "name": "speakbiblically",
   "version": "1.0.0",
-  "description": "39th Street Church of Christ Speak Biblically Site",
+  "description": "39th Street Church of Christ Speak Biblically",
   "main": "src/layout/index.tsx",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint --fix -c ./tslint.json src/**/*{.ts,.tsx}",
     "develop": "gatsby develop",
-    "start": "npm run develop",
-    "tslint": "tslint --fix -c ./tslint.json src/**/*{.ts,.tsx}",
-    "test": "jest"
+    "build": "gatsby build",
+    "serve": "gatsby serve"
   },
-  "browserslist": [
-    "defaults",
-    "ie >=9"
+  "keywords": [
+    "Bible",
+    "Gatsby",
+    "TypeScript"
   ],
+  "author": "Justin Leach",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leachjustin18/speakbiblically.git"
   },
-  "author": "Justin Leach",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/leachjustin18/speakbiblically/issues"
   },
-  "homepage": "https://github.com/leachjustin18/speakbiblically#readme",
   "dependencies": {
-    "@material-ui/core": "4.0.0-rc.0",
-    "@material-ui/icons": "4.0.0-rc.0",
-    "@material-ui/styles": "4.0.0-rc.0",
-    "core-js": "2.6.5",
-    "gatsby": "2.4.2",
-    "gatsby-plugin-favicon": "3.1.5",
-    "gatsby-plugin-manifest": "2.0.24",
-    "gatsby-plugin-netlify": "2.0.13",
-    "gatsby-plugin-offline": "2.0.25",
-    "gatsby-plugin-react-helmet": "3.0.10",
-    "gatsby-plugin-robots-txt": "1.4.0",
-    "gatsby-plugin-sass": "2.0.11",
-    "gatsby-plugin-sitemap": "2.0.10",
-    "gatsby-plugin-typescript": "2.0.11",
-    "gatsby-plugin-typography": "2.2.13",
+    "@material-ui/core": "4.4.0",
+    "gatsby": "2.15.9",
+    "gatsby-plugin-favicon": "3.1.6",
+    "gatsby-plugin-manifest": "2.2.5",
+    "gatsby-plugin-material-ui": "2.1.6",
+    "gatsby-plugin-netlify": "2.1.11",
+    "gatsby-plugin-offline": "3.0.3",
+    "gatsby-plugin-react-helmet": "3.1.6",
+    "gatsby-plugin-robots-txt": "1.5.0",
+    "gatsby-plugin-sitemap": "2.2.10",
+    "gatsby-plugin-typescript": "2.1.6",
     "gatsby-source-google-sheets": "1.1.1",
-    "jss": "9.8.7",
-    "react": "16.8.4",
-    "react-dom": "16.8.6",
-    "react-helmet": "5.2.0",
-    "react-jss": "8.6.1",
-    "react-typography": "0.16.19",
+    "prettier": "1.18.2",
+    "react": "16.9.0",
+    "react-dom": "16.9.0",
+    "react-helmet": "5.2.1",
     "react-youtube": "7.9.0",
-    "typeface-montserrat": "0.0.54",
-    "typescript": "3.3.4000",
-    "typography": "0.16.19"
+    "typescript": "3.6.2"
   },
   "devDependencies": {
-    "@hot-loader/react-dom": "16.8.6",
-    "@types/jest": "24.0.11",
-    "@types/react": "16.8.8",
-    "@types/react-dom": "16.8.3",
-    "@types/react-helmet": "5.0.8",
-    "autoprefixer": "9.5.0",
-    "babel-jest": "24.5.0",
-    "babel-preset-gatsby": "0.1.9",
-    "css-mqpacker": "7.0.0",
-    "cssnano": "4.1.10",
+    "@types/react": "16.9.2",
+    "@types/react-dom": "16.9.0",
+    "@types/react-helmet": "5.0.9",
+    "@types/react-youtube": "7.6.2",
     "gatsby-plugin-tslint": "0.0.2",
-    "husky": "1.3.1",
-    "identity-obj-proxy": "3.0.0",
-    "jest": "24.5.0",
-    "lint-staged": "8.1.5",
-    "node-sass": "4.12.0",
-    "prettier": "1.16.4",
-    "react-test-renderer": "16.8.4",
-    "stylelint": "9.10.1",
-    "stylelint-config-recommended-scss": "3.2.0",
-    "stylelint-scss": "3.5.4",
-    "tslint": "5.14.0",
+    "husky": "3.0.5",
+    "lint-staged": "9.2.5",
+    "tslint": "5.19.0",
     "tslint-config-airbnb": "5.11.1",
     "tslint-config-prettier": "1.18.0",
     "tslint-loader": "3.5.4",
     "tslint-plugin-prettier": "2.0.1",
-    "tslint-react": "3.6.0"
+    "tslint-react": "4.0.0"
   },
   "husky": {
     "hooks": {
@@ -87,15 +66,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "npm run tslint",
-      "prettier --write"
-    ],
-    "*.{js,json}": [
-      "prettier --write",
-      "git add"
-    ],
-    "*{.scss}": [
-      "stylelint --fix",
+      "npm run lint",
       "git add"
     ]
   }
