@@ -83,7 +83,10 @@ const PastLessons: FC<PastLessons> = ({ classes }) => {
                         Date: {node.date}
                       </Typography>
 
-                      <Link to="/lesson" className={classes.learnMoreLink}>
+                      <Link
+                        to={`/lesson?id=${node.id}`}
+                        className={classes.learnMoreLink}
+                      >
                         Learn More
                       </Link>
                     </Fragment>
