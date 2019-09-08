@@ -74,6 +74,10 @@ const Lesson: FC<Lesson> = ({ classes }) => {
   };
 
   const relatedLessons = (relatedLessons: string) => {
+    if (!relatedLessons) {
+      return null;
+    }
+
     const relatedLessonsSplit = relatedLessons.split(';');
     const relatedLessonsLength = relatedLessonsSplit.length - 1;
 
@@ -85,7 +89,7 @@ const Lesson: FC<Lesson> = ({ classes }) => {
       return (
         <li
           key={index}
-          style={index !== relatedLessonsLength ? { marginBottom: 16 } : null}
+          style={index !== relatedLessonsLength ? { marginBottom: 16 } : {}}
         >
           <a
             href={url}
@@ -113,15 +117,18 @@ const Lesson: FC<Lesson> = ({ classes }) => {
   }
 
   if (retrievedLessons && !isLoading) {
+    const lesson: {
+      title: string;
+      description: string;
+      youtubeid: string;
+      relatedlessons: string;
+    } = retrievedLessons.node;
     return (
       <Layout>
         <section className={classes.section}>
           <Helmet>
-            <title>{retrievedLessons.node.title}</title>
-            <meta
-              name="description"
-              content={retrievedLessons.node.description}
-            />
+            <title>{lesson.title}</title>
+            <meta name="description" content={lesson.description} />
           </Helmet>
 
           <Typography
@@ -130,27 +137,27 @@ const Lesson: FC<Lesson> = ({ classes }) => {
             gutterBottom={true}
             className={classes.title}
           >
-            {retrievedLessons.node.title}
+            {lesson.title}
           </Typography>
 
           <div className={classes.youTubeVideoContainer}>
             <YouTube
-              videoId={retrievedLessons.node.youtubeid}
+              videoId={lesson.youtubeid}
               opts={youTubeOptions}
               className={classes.youTube}
             />
           </div>
 
           <Typography component="p" variant="body1" gutterBottom={true}>
-            {retrievedLessons.node.description}
+            {lesson.description}
           </Typography>
 
-          {retrievedLessons.node.relatedlessons !== 'none' && (
+          {lesson.relatedlessons && lesson.relatedlessons !== 'none' && (
             <Fragment>
               <Typography component="h4" variant="h4" gutterBottom={true}>
                 Related Articles:
               </Typography>
-              <ul>{relatedLessons(retrievedLessons.node.relatedlessons)}</ul>
+              <ul>{relatedLessons(lesson.relatedlessons)}</ul>
             </Fragment>
           )}
         </section>
