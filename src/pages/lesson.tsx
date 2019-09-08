@@ -75,6 +75,7 @@ const Lesson: FC<Lesson> = ({ classes }) => {
 
   const relatedLessons = (relatedLessons: string) => {
     const relatedLessonsSplit = relatedLessons.split(';');
+    const relatedLessonsLength = relatedLessonsSplit.length - 1;
 
     return relatedLessonsSplit.map((relatedLesson, index) => {
       const relatedLessonSplit = relatedLesson.split(',');
@@ -82,7 +83,10 @@ const Lesson: FC<Lesson> = ({ classes }) => {
       const url = relatedLessonSplit[1].trim();
 
       return (
-        <li key={index}>
+        <li
+          key={index}
+          style={index !== relatedLessonsLength ? { marginBottom: 16 } : null}
+        >
           <a
             href={url}
             rel="noopener nofollow"
