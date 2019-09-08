@@ -178,7 +178,9 @@ const Lesson: FC<Lesson> = ({ classes }) => {
 
 const styles = () => ({
   title: {},
-  youTubeVideoContainer: {},
+  youTubeVideoContainer: {
+    marginBottom: 16,
+  },
   youTube: {},
   section: {},
   relatedArticleLinks: {
