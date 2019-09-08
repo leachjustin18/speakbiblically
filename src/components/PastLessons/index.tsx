@@ -66,15 +66,6 @@ const PastLessons: FC<PastLessons> = ({ classes }) => {
                   secondary={
                     <Fragment>
                       <Typography
-                        variant="body2"
-                        component="span"
-                        gutterBottom={true}
-                        className={classes.lessonDescription}
-                      >
-                        {node.description}
-                      </Typography>
-
-                      <Typography
                         variant="caption"
                         component="span"
                         gutterBottom={true}
@@ -83,11 +74,20 @@ const PastLessons: FC<PastLessons> = ({ classes }) => {
                         Date: {node.date}
                       </Typography>
 
+                      <Typography
+                        variant="body2"
+                        component="span"
+                        gutterBottom={true}
+                        className={classes.lessonDescription}
+                      >
+                        {node.description}
+                      </Typography>
+
                       <Link
                         to={`/lesson?id=${node.id}`}
                         className={classes.learnMoreLink}
                       >
-                        Learn More
+                        Learn More about {node.title}
                       </Link>
                     </Fragment>
                   }
