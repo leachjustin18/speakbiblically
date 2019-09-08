@@ -87,7 +87,7 @@ const PastLessons: FC<PastLessons> = ({ classes }) => {
                         to={`/lesson?id=${node.id}`}
                         className={classes.learnMoreLink}
                       >
-                        Learn More
+                        Learn More about {node.title}
                       </Link>
                     </Fragment>
                   }
