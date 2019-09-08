@@ -7,11 +7,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: 'speak-biblically',
-        short_name: 'speak-biblically',
+        name: 'Speak Biblically',
+        short_name: 'Speak Biblically',
         start_url: '/',
-        background_color: '#663399',
-        theme_color: '#663399',
+        background_color: '#454040',
+        theme_color: '#d9a762',
         display: `standalone`,
         icon: `src/favicon.png`,
       },
