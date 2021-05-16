@@ -40,7 +40,7 @@ const BackgroundSection = ({ className }: { className?: string }) => {
     `,
   );
 
-  const imageData = data.desktop.childImageSharp.fluid;
+  const imageData = data?.desktop?.childImageSharp?.fluid;
 
   return (
     <>
