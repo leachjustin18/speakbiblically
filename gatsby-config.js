@@ -9,7 +9,6 @@ module.exports = {
     'gatsby-plugin-favicon',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-offline',
-    'gatsby-plugin-netlify',
     'gatsby-plugin-sitemap',
     'gatsby-plugin-robots-txt',
     'gatsby-plugin-styled-components',
