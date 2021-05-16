@@ -40,7 +40,7 @@ const BackgroundSection = ({ className }: { className?: string }) => {
     `,
   );
 
-  console.lpg('data', data);
+  console.log('data', data);
 
   console.log('data desk', data?.desktop);
 
