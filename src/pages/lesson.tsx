@@ -37,6 +37,9 @@ const Title = styled(Typography)`
 `;
 
 const Lesson = (): ReactElement => {
+  const isBrowser = typeof window !== 'undefined';
+  if (!isBrowser) return <LessonNotFound />;
+
   const lessonId = new URLSearchParams(window.location.search).get('id');
 
   if (!lessonId) return <LessonNotFound />;
