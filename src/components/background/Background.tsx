@@ -44,16 +44,12 @@ const BackgroundSection = ({ className }: { className?: string }) => {
 
   return (
     <>
-      {isIPadHorizontal ? (
-        <BackgroundImage
-          Tag="div"
-          className={className}
-          fluid={imageData}
-          role="img"
-        />
-      ) : (
-        ''
-      )}
+      <BackgroundImage
+        Tag="div"
+        className={className}
+        fluid={imageData}
+        role="img"
+      />
     </>
   );
 };
