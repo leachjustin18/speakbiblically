@@ -1,22 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
-import BackgroundImage from 'gatsby-background-image';
+import BackgroundImage, { IFluidObject } from 'gatsby-background-image';
 import { useMediaQuery } from 'react-responsive';
 
 type BackgroundImageDataProp = {
   desktop: {
     childImageSharp: {
-      fluid: Record<
-        | 'aspectRatio'
-        | 'base64'
-        | 'sizes'
-        | 'src'
-        | 'srcSet'
-        | 'srcSetWebp'
-        | 'srcWebp',
-        number | string
-      >;
+      fluid: IFluidObject;
     };
   };
 };
@@ -40,20 +31,18 @@ const BackgroundSection = ({ className }: { className?: string }) => {
     `,
   );
 
-  console.log('data', data);
-
-  console.log('data desk', data?.desktop);
-
   const imageData = data?.desktop?.childImageSharp?.fluid;
 
   return (
     <>
-      <BackgroundImage
-        Tag="div"
-        className={className}
-        fluid={imageData}
-        role="img"
-      />
+      {isIPadHorizontal ? (
+        <BackgroundImage
+          Tag="div"
+          className={className}
+          fluid={imageData}
+          role="img"
+        />
+      ) : null}
     </>
   );
 };
