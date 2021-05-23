@@ -1,56 +1,54 @@
-import React, { FC, Fragment, useEffect, useState } from 'react';
-import { Link, graphql, useStaticQuery } from 'gatsby';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import { WithStyles } from '@material-ui/core';
-import { fade } from '@material-ui/core/styles/colorManipulator';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import React, { ReactElement } from 'react';
+import { graphql, useStaticQuery } from 'gatsby';
+import { Helmet } from 'react-helmet';
 import YouTube from 'react-youtube';
-import Helmet from 'react-helmet';
-import Layout from '../layout';
+import styled from 'styled-components';
+import Layout from '../layout/Layout';
+import Typography from '../components/typography/Typography';
+import LessonNotFound from '../components/lessonNotFound/LessonNotFound';
+import RelatedArticles from '../components/relatedArticles/RelatedArticles';
 
-const youTubeOptions: { playerVars: { rel: number } } = {
-  playerVars: {
-    rel: 0,
-  },
-};
-
-interface Lesson extends WithStyles<typeof styles> {}
-
-type LessonType = {
-  lessons: {
-    edges: [
-      {
-        node: {
-          date: string;
-          title: string;
-          description: string;
-          id: string;
-          youtubeid: string;
-          relatedlessons: string;
-        };
-      }
-    ];
+type LessonDataProp = {
+  node: {
+    date: string;
+    description: string;
+    id: string;
+    relatedlessons?: string;
+    title: string;
+    youtubeid: string;
   };
 };
 
-const Lesson: FC<Lesson> = ({ classes }) => {
-  const [search, setSearch] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+const YouTubeContainer = styled.div`
+  margin-bottom: 0.5em;
+  text-align: center;
 
-  useEffect(() => {
-    setSearch(window.location.search);
-    setIsLoading(false);
-    // tslint:disable-next-line: align
-  }, []);
+  @media only screen and (max-width: 45rem) {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 40rem;
+  }
+`;
 
-  const getSearchId = (): string | false => {
-    return search && search.indexOf('id') > -1 && search.split('id=')[1];
-  };
+const Title = styled(Typography)`
+  @media (max-width: 37.5rem) {
+    font-size: 9vw;
+  }
+`;
 
-  const data: LessonType = useStaticQuery(graphql`
+const Lesson = (): ReactElement => {
+  const isBrowser = typeof window !== 'undefined';
+  if (!isBrowser) return <LessonNotFound />;
+
+  const lessonId = new URLSearchParams(window.location.search).get('id');
+
+  if (!lessonId) return <LessonNotFound />;
+
+  const data: {
+    allGoogleSheetLessonsRow: { edges: LessonDataProp[] };
+  } = useStaticQuery(graphql`
     query lessonQuery {
-      lessons: allGoogleSheetLessonsRow {
+      allGoogleSheetLessonsRow {
         edges {
           node {
             date
@@ -65,172 +63,61 @@ const Lesson: FC<Lesson> = ({ classes }) => {
     }
   `);
 
-  const getLessons = () => {
-    if (Object.keys(data.lessons).length && getSearchId()) {
-      return data.lessons.edges.find(({ node }) => node.id === getSearchId());
+  const lesson = data.allGoogleSheetLessonsRow.edges.find(
+    (edge) => edge.node.id === lessonId,
+  )?.node;
+
+  if (!lesson) return <LessonNotFound />;
+
+  const YouTubeLocal = ({ className }: { className?: string }) => (
+    <YouTube
+      className={className}
+      videoId={lesson.youtubeid}
+      opts={{
+        playerVars: {
+          rel: 0,
+        },
+      }}
+    />
+  );
+
+  const YouTubeLesson = styled(YouTubeLocal)`
+    @media only screen and (max-width: 45rem) {
+      width: 100%;
     }
+  `;
 
-    return false;
-  };
-
-  const relatedLessons = (relatedLessons: string) => {
-    if (!relatedLessons) {
-      return null;
-    }
-
-    const relatedLessonsSplit = relatedLessons.split(';');
-    const relatedLessonsLength = relatedLessonsSplit.length - 1;
-
-    return relatedLessonsSplit.map((relatedLesson, index) => {
-      const relatedLessonSplit = relatedLesson.split(',');
-      const name = relatedLessonSplit[0].trim();
-      const url = relatedLessonSplit[1].trim();
-
-      return (
-        <li
-          key={index}
-          style={index !== relatedLessonsLength ? { marginBottom: 16 } : {}}
-        >
-          <a
-            href={url}
-            rel="noopener nofollow"
-            target="_blank"
-            style={{ color: fade('#000', 0.8) }}
-          >
-            {name}
-          </a>
-        </li>
-      );
-    });
-  };
-
-  const retrievedLessons = getLessons();
-
-  if (isLoading) {
-    return (
-      <Layout>
-        <section className={classes.section}>
-          <LinearProgress variant="query" />
-        </section>
-      </Layout>
-    );
-  }
-
-  if (retrievedLessons && !isLoading) {
-    const lesson: {
-      title: string;
-      description: string;
-      youtubeid: string;
-      relatedlessons: string;
-    } = retrievedLessons.node;
-    return (
-      <Layout>
-        <section className={classes.section}>
-          <Helmet>
-            <title>{lesson.title}</title>
-            <meta name="description" content={lesson.description} />
-          </Helmet>
-
-          <Typography
-            component="h2"
-            variant="h2"
-            gutterBottom={true}
-            className={classes.title}
-          >
-            {lesson.title}
-          </Typography>
-
-          <div className={classes.youTubeVideoContainer}>
-            <YouTube
-              videoId={lesson.youtubeid}
-              opts={youTubeOptions}
-              className={classes.youTube}
-            />
-          </div>
-
-          <Typography component="p" variant="body1" gutterBottom={true}>
-            {lesson.description}
-          </Typography>
-
-          {lesson.relatedlessons && lesson.relatedlessons !== 'none' && (
-            <Fragment>
-              <Typography component="h4" variant="h4" gutterBottom={true}>
-                Related Articles:
-              </Typography>
-              <ul>{relatedLessons(lesson.relatedlessons)}</ul>
-            </Fragment>
-          )}
-        </section>
-      </Layout>
-    );
-  }
   return (
     <Layout>
-      <section className={classes.section}>
-        <Typography component="h2" variant="h2" gutterBottom={true}>
-          Uh oh!
-        </Typography>
-        <Typography variant="h4" component="h3" gutterBottom={true}>
-          We're sorry, lesson not found.
-        </Typography>
-        Please return to the{' '}
-        <Link to="/" className={classes.homeLink}>
-          Home Page
-        </Link>{' '}
-        and view one of our other lesson(s).
-      </section>
+      <Helmet>
+        <title>{lesson.title}</title>
+        <meta name="description" content={lesson.description} />
+      </Helmet>
+
+      <Title variant="h2" gutterBottom align="center">
+        {lesson.title}
+      </Title>
+
+      <YouTubeContainer>
+        <YouTubeLesson />
+      </YouTubeContainer>
+
+      <Typography fontSize="1.14rem" gutterBottom>
+        {lesson.description}
+      </Typography>
+
+      {lesson.relatedlessons ? (
+        <>
+          <Typography variant="h3" fontSize="2.5rem" gutterBottom>
+            Related articles:
+          </Typography>
+          <ul>
+            <RelatedArticles relatedLessons={lesson.relatedlessons} />
+          </ul>
+        </>
+      ) : null}
     </Layout>
   );
 };
 
-const styles = () => ({
-  title: {},
-  youTubeVideoContainer: {
-    marginBottom: 16,
-  },
-  youTube: {},
-  section: {},
-  relatedArticleLinks: {
-    color: fade('#000', 0.8),
-  },
-  homeLink: {
-    color: fade('#000', 0.8),
-  },
-  '@media (min-width: 48rem)': {
-    title: {
-      textAlign: 'center' as 'center',
-    },
-    youTubeVideoContainer: {
-      textAlign: 'center' as 'center',
-    },
-  },
-  '@media (max-width: 37.5rem)': {
-    title: {
-      fontSize: '9vw',
-    },
-    youTubeVideoContainer: {
-      maxWidth: '640px',
-    },
-    youTube: {
-      width: '100%',
-    },
-  },
-  '@media (max-width: 45rem)': {
-    youTubeVideoContainer: {
-      maxWidth: '640px',
-    },
-    youTube: {
-      width: '100%',
-    },
-  },
-  '@media (max-width: 64rem)': {
-    section: {
-      boxShadow:
-        '0px 3px 7px 1px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 2px 1px -1px rgba(0,0,0,0.12)',
-      padding: '1.5rem 1rem',
-      borderRadius: '0.3125rem',
-    },
-  },
-});
-
-export default withStyles(styles)(Lesson);
+export default Lesson;

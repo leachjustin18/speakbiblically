@@ -1,32 +1,35 @@
-import React, { FC, Fragment } from 'react';
+import React from 'react';
 import { Link } from 'gatsby';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import { WithStyles } from '@material-ui/core';
-import { fade } from '@material-ui/core/styles/colorManipulator';
-import Layout from '../layout';
+import styled from 'styled-components';
+import Layout from '../layout/Layout';
+import Typography from '../components/typography/Typography';
 
-interface PageNotFound extends WithStyles<typeof styles> {}
+const LinkGatsby = ({ className }: { className?: string }) => (
+  <Link className={className} to="/">
+    Home page
+  </Link>
+);
 
-const PageNotFound: FC<PageNotFound> = ({ classes }) => (
+const LinkHome = styled(LinkGatsby)`
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 1.14rem;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
+const PageNotFound = (): JSX.Element => (
   <Layout>
-    <Fragment>
-      <Typography component="h3" variant="h3" gutterBottom={true}>
-        Page Not Found
-      </Typography>
-      Please return to the{' '}
-      <Link to="/" className={classes.homeLink}>
-        Home Page
-      </Link>{' '}
-      and view one of our lesson(s).
-    </Fragment>
+    <Typography variant="h2" gutterBottom>
+      Page not found
+    </Typography>
+
+    <Typography fontSize="1.14rem">
+      Please return to the <LinkHome /> and view one of our lesson(s)
+    </Typography>
   </Layout>
 );
 
-const styles = () => ({
-  homeLink: {
-    color: fade('#000', 0.8),
-  },
-});
-
-export default withStyles(styles)(PageNotFound);
+export default PageNotFound;

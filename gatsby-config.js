@@ -1,9 +1,28 @@
+require('dotenv').config();
+const path = require(`path`);
+
 module.exports = {
   siteMetadata: {
     title: 'Speak Biblically',
-    siteUrl: 'https://tobedetermined.com',
+    siteUrl: 'https://www.speakbiblically.com',
   },
   plugins: [
+    'gatsby-plugin-favicon',
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-offline',
+    'gatsby-plugin-sitemap',
+    'gatsby-plugin-robots-txt',
+    'gatsby-plugin-styled-components',
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-typescript',
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'image',
+        path: path.join(__dirname, `src`, `image`),
+      },
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -15,23 +34,14 @@ module.exports = {
         display: `standalone`,
         icon: `src/favicon.png`,
       },
-	},
-	{
-		resolve: 'gatsby-source-google-sheets',
-		options: {
-			spreadsheetId: '1bKMxl15efhuFFtppUWQwzppDALj68VsCWbljYmym7A8',
-			worksheetTitle: 'Lessons',
-			credentials: require('./src/utils/client_secret.json')
-		}
-	},
-    `gatsby-plugin-top-layout`,
-    `gatsby-plugin-material-ui`,
-    `gatsby-plugin-offline`,
-    `gatsby-plugin-favicon`,
-    `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-sitemap`,
-    `gatsby-plugin-typescript`,
-    `gatsby-plugin-tslint`,
-    `gatsby-plugin-netlify`,
+    },
+    {
+      resolve: 'gatsby-source-google-sheets',
+      options: {
+        spreadsheetId: process.env.SPREADSHEET_ID,
+        worksheetTitle: process.env.WORKSHEET_TITLE,
+        credentials: require('./utils/client_secret.js'),
+      },
+    },
   ],
 };
