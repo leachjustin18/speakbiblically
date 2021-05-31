@@ -36,6 +36,10 @@ const Title = styled(Typography)`
   }
 `;
 
+const Description = styled(Typography)`
+  white-space: pre-wrap;
+`;
+
 const Lesson = (): ReactElement => {
   const isBrowser = typeof window !== 'undefined';
   if (!isBrowser) return <LessonNotFound />;
@@ -102,9 +106,9 @@ const Lesson = (): ReactElement => {
         <YouTubeLesson />
       </YouTubeContainer>
 
-      <Typography fontSize="1.14rem" gutterBottom>
+      <Description fontSize="1.14rem" gutterBottom>
         {lesson.description}
-      </Typography>
+      </Description>
 
       {lesson.relatedlessons ? (
         <>
