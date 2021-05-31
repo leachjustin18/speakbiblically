@@ -91,8 +91,6 @@ const Lesson = (): ReactElement => {
     }
   `;
 
-  console.log('lesson.description', lesson.description);
-
   return (
     <Layout>
       <Helmet>
