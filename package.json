@@ -9,7 +9,10 @@
     "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "test": "snyk test",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "keywords": [
     "God",
@@ -28,25 +31,21 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
-    "gatsby": "^2.32.12",
     "gatsby-background-image": "^1.4.1",
     "gatsby-plugin-favicon": "^3.1.6",
     "gatsby-plugin-manifest": "^2.12.1",
     "gatsby-plugin-offline": "^3.10.2",
     "gatsby-plugin-react-helmet": "^3.10.0",
-    "gatsby-plugin-robots-txt": "^1.5.6",
-    "gatsby-plugin-sharp": "^2.14.3",
     "gatsby-plugin-sitemap": "^2.12.0",
     "gatsby-plugin-styled-components": "^3.10.0",
     "gatsby-plugin-typescript": "^2.12.1",
-    "gatsby-source-filesystem": "^2.11.1",
-    "gatsby-source-google-sheets": "^1.1.1",
     "gatsby-transformer-sharp": "^2.12.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
     "react-responsive": "^8.2.0",
     "react-youtube": "^7.13.1",
+    "snyk": "1.618.0",
     "styled-components": "^5.2.3"
   },
   "devDependencies": {
@@ -64,5 +63,6 @@
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "typescript": "^4.2.4"
-  }
+  },
+  "snyk": true
 }
