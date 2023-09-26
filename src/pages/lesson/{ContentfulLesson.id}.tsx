@@ -31,8 +31,8 @@ const LessonTemplate = ({ data }: { data: TLesson }) => {
     />
   );
 
-  const createdDate = format(new window.Date(createdAt), 'MMMMMMM do, yyyy');
-  const updatedDate = format(new window.Date(updatedAt), 'MMMMMMM do, yyyy');
+  const createdDate = format(new Date(createdAt), 'MMMMMMM do, yyyy');
+  const updatedDate = format(new Date(updatedAt), 'MMMMMMM do, yyyy');
 
   const Title = styled(Typography)`
     @media (max-width: 37.5rem) {

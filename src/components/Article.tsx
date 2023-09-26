@@ -68,8 +68,8 @@ const Article = ({
     }
   `;
 
-  const createdDate = format(new window.Date(createdAt), 'MMMMMMM do, yyyy');
-  const updatedDate = format(new window.Date(updatedAt), 'MMMMMMM do, yyyy');
+  const createdDate = format(new Date(createdAt), 'MMMMMMM do, yyyy');
+  const updatedDate = format(new Date(updatedAt), 'MMMMMMM do, yyyy');
 
   return (
     <ArticleComponent>
