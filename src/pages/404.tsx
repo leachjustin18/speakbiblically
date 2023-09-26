@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import styled from 'styled-components';
 import Layout from '../layout/Layout';
-import Typography from '../components/typography/Typography';
+import Typography from '../components/Typography';
 
 const LinkGatsby = ({ className }: { className?: string }) => (
   <Link className={className} to="/">
@@ -13,11 +13,6 @@ const LinkGatsby = ({ className }: { className?: string }) => (
 const LinkHome = styled(LinkGatsby)`
   color: rgba(0, 0, 0, 0.8);
   font-size: 1.14rem;
-  text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
 `;
 
 const PageNotFound = (): JSX.Element => (
