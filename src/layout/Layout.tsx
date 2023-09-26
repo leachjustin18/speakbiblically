@@ -1,10 +1,12 @@
-import React, { PropsWithChildren, ReactElement } from 'react';
-import { Helmet } from 'react-helmet';
+import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import Background from '../components/background/Background';
-import Header from '../components/header/Header';
+import { Link, graphql, useStaticQuery } from 'gatsby';
+import { useMediaQuery } from 'react-responsive';
+import type { PropsWithChildren, ReactElement } from 'react';
+import type { HeadFC } from 'gatsby';
+import Typography from '../components/Typography';
 
-export const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   body {
     box-sizing: border-box;
     color: rgba(0, 0, 0, 0.87);
@@ -30,30 +32,103 @@ const Container = styled.section`
   }
 `;
 
-const Layout = ({ children }: PropsWithChildren<unknown>): ReactElement => (
+type TitleLinkProps = {
+  className?: string;
+};
+
+const TitleLink = ({
+  children,
+  className,
+}: PropsWithChildren<TitleLinkProps>): ReactElement => (
+  <Link to="/" className={className}>
+    {children}
+  </Link>
+);
+
+const Title = styled(TitleLink)`
+  color: #d9a762;
+  text-decoration: none;
+`;
+
+const HeaderComponent = styled.header`
+  background-color: #454040;
+  padding-bottom: 1.111rem;
+`;
+
+const TitleTypography = styled(Typography)`
+  @media (max-width: 37.5rem) {
+    font-size: 18vw;
+  }
+`;
+
+const BackgroundSection = (): string => {
+  const isIPadHorizontal = useMediaQuery({
+    query: '(min-width: 1025px)',
+  });
+
+  const data = useStaticQuery(
+    graphql`
+      query {
+        desktop: file(relativePath: { eq: "bible.jpg" }) {
+          childImageSharp {
+            fluid(quality: 90, maxWidth: 1025) {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
+        }
+      }
+    `,
+  );
+
+  return isIPadHorizontal ? data?.desktop?.childImageSharp?.fluid?.src : '';
+};
+
+const BackgroundImage = styled.div`
+  bottom: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+  opacity: 0.5;
+  background-image: url(${BackgroundSection});
+  background-size: cover;
+`;
+
+const Layout = ({ children }: PropsWithChildren): ReactElement => (
   <>
     <GlobalStyle />
     <main>
-      <Helmet>
-        <html lang="en" />
-        <title>Speak Biblically</title>
-        <meta
-          name="description"
-          content="Welcome to Speak Biblically!  On this site we are concerned about God's truth"
-        />
-        <link
-          href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=fallback"
-          rel="stylesheet"
-        />
-      </Helmet>
+      <HeaderComponent>
+        <TitleTypography variant="h1" align="center">
+          <Title>Speak Biblically</Title>
+        </TitleTypography>
+      </HeaderComponent>
 
-      <Header />
+      <BackgroundImage />
 
       <Container>{children}</Container>
-
-      <Background />
     </main>
   </>
 );
 
 export default Layout;
+
+export const LayoutHead = ({ children }: PropsWithChildren) => (
+  <>
+    <html lang="en" />
+    <title id="title">Speak Biblically</title>
+    <meta
+      name="description"
+      id="description"
+      content="Welcome to Speak Biblically!  On this site we are concerned about God's truth"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500&display=fallback"
+      rel="stylesheet"
+    />
+
+    {children}
+  </>
+);
+
+export const Head: HeadFC = () => <LayoutHead />;

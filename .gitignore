@@ -1,14 +1,5 @@
-# Project dependencies
-.cache
-node_modules
-
-# Build directory
-/public
-
-#Misc
-.DS_Store
-.env
-.vscode
-
-#Log files
-npm-debug.log*
+node_modules/
+.cache/
+public
+src/gatsby-types.d.ts
+.env.*

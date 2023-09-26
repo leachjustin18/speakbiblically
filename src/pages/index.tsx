@@ -1,47 +1,42 @@
-import React, { ReactElement } from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
+import React from 'react';
+import { graphql } from 'gatsby';
 import Layout from '../layout/Layout';
-import Typography from '../components/typography/Typography';
-import PastLessons from '../components/pastLessons/PastLessons';
-import ArticleWrapper from '../components/articleWrapper/ArticleWrapper';
+import Article from '../components/Article';
+import type { TLessons } from '../constants/types';
 
-type RecentLessonProp = {
-  googleSheetLessonsRow: {
-    date: string;
-    title: string;
-    description: string;
-    id: string;
-  };
-};
+const IndexPage = ({ data }: { data: TLessons }) => (
+  <Layout>
+    {data.allContentfulLesson.nodes.map((content) => (
+      <article key={content.id}>
+        <Article
+          createdAt={content.createdAt}
+          updatedAt={content.updatedAt}
+          title={content.title}
+          description={content.description}
+          gatsbyPath={content.gatsbyPath}
+        />
+      </article>
+    ))}
+  </Layout>
+);
 
-const Home = (): ReactElement => {
-  const data: RecentLessonProp = useStaticQuery(graphql`
-    query homePage {
-      googleSheetLessonsRow(recentlesson: { eq: "Y" }) {
-        date
-        title
-        description
+export default IndexPage;
+
+export const pageQurey = graphql`
+  query homePage {
+    allContentfulLesson {
+      nodes {
+        gatsbyPath(filePath: "/lesson/{ContentfulLesson.id}")
+        createdAt
+        updatedAt
         id
+        description {
+          raw
+        }
+        title
       }
     }
-  `);
+  }
+`;
 
-  const recentLessonData = data.googleSheetLessonsRow;
-
-  return (
-    <Layout>
-      <Typography variant="h2" gutterBottom fontWeight={300}>
-        Recent lesson
-      </Typography>
-      <ArticleWrapper
-        title={recentLessonData.title}
-        date={recentLessonData.date}
-        description={recentLessonData.description}
-        id={recentLessonData.id}
-      />
-      <PastLessons />
-    </Layout>
-  );
-};
-
-export default Home;
+export { Head } from '../layout/Layout';

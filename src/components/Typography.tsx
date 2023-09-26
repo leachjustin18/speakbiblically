@@ -1,24 +1,13 @@
-import React, { PropsWithChildren, ReactElement } from 'react';
-import styled from 'styled-components';
+import React from 'react';
+import styled, { WebTarget } from 'styled-components';
+import type { PropsWithChildren, ReactElement } from 'react';
 
-type TypographyProps = {
-  variant?: 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'caption' | 'span';
-  className?: string;
-  color?: string;
-  fontWeight?: number;
-  lineHeight?: number;
-  style?: Record<string, string | number>;
-  align?: string;
-  gutterBottom?: boolean;
-  fontSize?: string;
-};
-
-const TypographyLocal = ({
+const TypographyElement = ({
   className,
   children,
   variant = 'p',
   style,
-}: PropsWithChildren<TypographyProps>): ReactElement => {
+}: PropsWithChildren<any>): ReactElement => {
   const Variant = variant === 'caption' ? 'span' : variant;
 
   return (
@@ -28,7 +17,7 @@ const TypographyLocal = ({
   );
 };
 
-const Typography = styled(TypographyLocal)`
+const Typography = styled(TypographyElement)`
   color: ${({ color }) => color};
   font-weight: ${({ variant, fontWeight }) => {
     const v = variant;
