@@ -8,6 +8,7 @@ import Layout, { LayoutHead } from '../../layout/Layout';
 import { format } from 'date-fns';
 import Typography from '../../components/Typography';
 import { TLesson } from '../../constants/types';
+import { isBrowser } from '../../constants/constants';
 
 const LessonTemplate = ({ data }: { data: TLesson }) => {
   const {
@@ -31,8 +32,13 @@ const LessonTemplate = ({ data }: { data: TLesson }) => {
     />
   );
 
-  const createdDate = format(new Date(createdAt), 'MMMMMMM do, yyyy');
-  const updatedDate = format(new Date(updatedAt), 'MMMMMMM do, yyyy');
+  let createdDate = '';
+  let updatedDate = '';
+
+  if (isBrowser) {
+    createdDate = format(new window.Date(createdAt), 'MMMMMMM do, yyyy');
+    updatedDate = format(new window.Date(updatedAt), 'MMMMMMM do, yyyy');
+  }
 
   const Title = styled(Typography)`
     @media (max-width: 37.5rem) {

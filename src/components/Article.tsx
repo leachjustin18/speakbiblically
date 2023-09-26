@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import type { ReactElement } from 'react';
 import type { TContent } from '../constants/types';
 import Typography from './Typography';
+import { isBrowser } from '../constants/constants';
 
 const Article = ({
   title,
@@ -68,8 +69,13 @@ const Article = ({
     }
   `;
 
-  const createdDate = format(new Date(createdAt), 'MMMMMMM do, yyyy');
-  const updatedDate = format(new Date(updatedAt), 'MMMMMMM do, yyyy');
+  let createdDate = '';
+  let updatedDate = '';
+
+  if (isBrowser) {
+    createdDate = format(new window.Date(createdAt), 'MMMMMMM do, yyyy');
+    updatedDate = format(new window.Date(updatedAt), 'MMMMMMM do, yyyy');
+  }
 
   return (
     <ArticleComponent>
