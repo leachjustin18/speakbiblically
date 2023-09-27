@@ -24,7 +24,7 @@ export default IndexPage;
 
 export const pageQurey = graphql`
   query homePage {
-    allContentfulLesson {
+    allContentfulLesson(sort: { createdAt: DESC }) {
       nodes {
         gatsbyPath(filePath: "/lesson/{ContentfulLesson.id}")
         createdAt
