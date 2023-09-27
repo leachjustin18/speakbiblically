@@ -2,7 +2,7 @@ import React from 'react';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
-import { format } from 'date-fns';
+import { format, isEqual } from 'date-fns';
 import type { ReactElement } from 'react';
 import type { TContent } from '../constants/types';
 import Typography from './Typography';
@@ -74,7 +74,12 @@ const Article = ({
 
   if (isBrowser) {
     createdDate = format(new window.Date(createdAt), 'MMMMMMM do, yyyy');
-    updatedDate = format(new window.Date(updatedAt), 'MMMMMMM do, yyyy');
+    updatedDate = isEqual(
+      new window.Date(createdAt),
+      new window.Date(updatedAt),
+    )
+      ? ''
+      : format(new window.Date(updatedAt), 'MMMMMMM do, yyyy');
   }
 
   return (

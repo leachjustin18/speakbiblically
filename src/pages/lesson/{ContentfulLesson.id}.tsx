@@ -5,7 +5,7 @@ import YouTube from 'react-youtube';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import type { HeadFC } from 'gatsby';
 import Layout, { LayoutHead } from '../../layout/Layout';
-import { format } from 'date-fns';
+import { format, isEqual } from 'date-fns';
 import Typography from '../../components/Typography';
 import { TLesson } from '../../constants/types';
 import { isBrowser } from '../../constants/constants';
@@ -37,7 +37,12 @@ const LessonTemplate = ({ data }: { data: TLesson }) => {
 
   if (isBrowser) {
     createdDate = format(new window.Date(createdAt), 'MMMMMMM do, yyyy');
-    updatedDate = format(new window.Date(updatedAt), 'MMMMMMM do, yyyy');
+    updatedDate = isEqual(
+      new window.Date(createdAt),
+      new window.Date(updatedAt),
+    )
+      ? ''
+      : format(new window.Date(updatedAt), 'MMMMMMM do, yyyy');
   }
 
   const Title = styled(Typography)`
