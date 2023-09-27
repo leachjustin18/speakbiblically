@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 import YouTube from 'react-youtube';
+import type { YouTubeProps } from 'react-youtube';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import type { HeadFC } from 'gatsby';
 import Layout, { LayoutHead } from '../../layout/Layout';
@@ -24,11 +25,7 @@ const LessonTemplate = ({ data }: { data: TLesson }) => {
     <YouTube
       className={className}
       videoId={youTubeId}
-      opts={{
-        playerVars: {
-          rel: 0,
-        },
-      }}
+      opts={{ width: '100%', playerVars: { rel: 0 } }}
     />
   );
 
@@ -69,6 +66,9 @@ const LessonTemplate = ({ data }: { data: TLesson }) => {
   `;
 
   const YouTubeLesson = styled(YouTubeLocal)`
+    max-width: 40rem;
+    margin-left: auto;
+    margin-right: auto;
     @media only screen and (max-width: 45rem) {
       width: 100%;
     }
