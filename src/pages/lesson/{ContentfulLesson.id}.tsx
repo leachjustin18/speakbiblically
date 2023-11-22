@@ -35,8 +35,8 @@ const LessonTemplate = ({ data }: { data: TLesson }) => {
   if (isBrowser) {
     createdDate = format(new window.Date(createdAt), 'MMMMMMM do, yyyy');
     updatedDate = isEqual(
-      new window.Date(createdAt),
-      new window.Date(updatedAt),
+      new window.Date(format(new window.Date(createdAt), 'yyyy-d-MMM')),
+      new window.Date(format(new window.Date(updatedAt), 'yyyy-d-MMM')),
     )
       ? ''
       : format(new window.Date(updatedAt), 'MMMMMMM do, yyyy');
