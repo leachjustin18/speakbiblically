@@ -2,7 +2,6 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import styled from 'styled-components';
 import YouTube from 'react-youtube';
-import type { YouTubeProps } from 'react-youtube';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import type { HeadFC } from 'gatsby';
 import Layout, { LayoutHead } from '../../layout/Layout';
@@ -25,7 +24,7 @@ const LessonTemplate = ({ data }: { data: TLesson }) => {
     <YouTube
       className={className}
       videoId={youTubeId}
-      opts={{ width: '100%', playerVars: { rel: 0 } }}
+      opts={{ width: '100%' }}
     />
   );
 
@@ -76,6 +75,17 @@ const LessonTemplate = ({ data }: { data: TLesson }) => {
 
   const Description = styled(Typography)`
     white-space: pre-wrap;
+    line-height: 1.5;
+
+    @media (max-width: 37.5rem) {
+      font-size: 4vw;
+    }
+  `;
+
+  const RelatedArticles = styled(Typography)`
+    li {
+      padding-bottom: 1rem;
+    }
   `;
 
   return (
@@ -110,8 +120,9 @@ const LessonTemplate = ({ data }: { data: TLesson }) => {
           <Typography variant="h3" fontSize="1.6rem" gutterBottom>
             Related articles
           </Typography>
-
-          {renderRichText(relatedArticles)}
+          <RelatedArticles variant="div">
+            {renderRichText(relatedArticles)}
+          </RelatedArticles>
         </div>
       ) : null}
     </Layout>
