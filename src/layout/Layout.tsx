@@ -71,16 +71,16 @@ const BackgroundSection = (): string => {
       query {
         desktop: file(relativePath: { eq: "bible.jpg" }) {
           childImageSharp {
-            fluid(quality: 90, maxWidth: 1025) {
-              ...GatsbyImageSharpFluid_withWebp
-            }
+            gatsbyImageData(layout: FIXED)
           }
         }
       }
     `,
   );
 
-  return isIPadHorizontal ? data?.desktop?.childImageSharp?.fluid?.src : '';
+  return isIPadHorizontal
+    ? data?.desktop?.childImageSharp?.gatsbyImageData?.images?.fallback?.src
+    : '';
 };
 
 const BackgroundImage = styled.div`
