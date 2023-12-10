@@ -1,9 +1,9 @@
+import path from 'path';
 import type { GatsbyConfig } from 'gatsby';
 
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
-const path = require(`path`);
 
 const config: GatsbyConfig = {
   flags: {
