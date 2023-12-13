@@ -23,7 +23,6 @@ const config: GatsbyConfig = {
       options: {
         accessToken: `${process.env.CONTENTFUL_ACCESS_TOKEN}`,
         spaceId: `${process.env.CONTENTFUL_SPACE_ID}`,
-        downloadLocal: true,
       },
     },
     'gatsby-plugin-image',
