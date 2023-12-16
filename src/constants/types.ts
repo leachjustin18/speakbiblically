@@ -2,6 +2,7 @@ import type {
   ContentfulRichTextGatsbyReference,
   RenderRichTextData,
 } from 'gatsby-source-contentful/rich-text';
+import type { IGatsbyImageData } from 'gatsby-plugin-image';
 
 export type TContent = {
   createdAt: string;
@@ -11,6 +12,10 @@ export type TContent = {
   relatedArticles?: RenderRichTextData<ContentfulRichTextGatsbyReference>;
   gatsbyPath: string;
   id?: string;
+  blogImage: {
+    title: string;
+    gatsbyImageData: IGatsbyImageData;
+  };
 };
 
 export type TLessons = {

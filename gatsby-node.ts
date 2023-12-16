@@ -11,7 +11,6 @@ export const createPages: GatsbyNode['createPages'] = async ({
   const query = await graphql(`
     {
       allContentfulLesson(sort: { createdAt: DESC }) {
-        totalCount
         nodes {
           createdAt
           updatedAt
@@ -20,6 +19,10 @@ export const createPages: GatsbyNode['createPages'] = async ({
             raw
           }
           title
+          blogImage {
+            title
+            gatsbyImageData(layout: FULL_WIDTH)
+          }
         }
       }
     }

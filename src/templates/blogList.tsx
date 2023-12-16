@@ -1,7 +1,9 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
-import Layout from '../layout/Layout';
+import { Container, Typography } from '@mui/material';
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import type { TLessons } from '../constants/types';
+import type { IGatsbyImageData } from 'gatsby-plugin-image';
 
 const BlogList = ({
   pageContext,
@@ -19,16 +21,25 @@ const BlogList = ({
     pageContext;
 
   return (
-    <Layout>
-      {data.allContentfulLesson.nodes.map((content) => (
-        <article key={content.id}>
-          {content.createdAt}
-          {content.updatedAt}
-          {content.title}
-          {<>content.description</>}
-          {content.gatsbyPath}
-        </article>
-      ))}
+    <>
+      {data.allContentfulLesson.nodes.map((content) => {
+        let imageData = null;
+
+        const image = getImage(
+          content?.blogImage?.gatsbyImageData,
+        ) as IGatsbyImageData;
+
+        return (
+          <Container key={content.id}>
+            <Typography>{content.createdAt}</Typography>
+            {content.updatedAt}
+            <GatsbyImage image={image} alt={content?.blogImage?.title} />
+            {content.title}
+            {<>content.description</>}
+            {content.gatsbyPath}
+          </Container>
+        );
+      })}
       {previousPagePath ? (
         <Link to={previousPagePath} rel="prev">
           ← Previous Page
@@ -49,7 +60,7 @@ const BlogList = ({
           <Link to={`/${i === 0 ? '' : i + 1}`}>{i + 1}</Link>
         </li>
       ))}
-    </Layout>
+    </>
   );
 };
 
@@ -67,6 +78,10 @@ export const pageQuery = graphql`
           raw
         }
         title
+        blogImage {
+          title
+          gatsbyImageData(layout: FULL_WIDTH)
+        }
       }
     }
   }
