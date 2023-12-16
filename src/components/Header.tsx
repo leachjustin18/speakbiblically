@@ -3,6 +3,7 @@ import { Link } from 'gatsby';
 import { Global, css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { AppBar, Typography, Toolbar } from '@mui/material';
+import { grey } from '@mui/material/colors';
 
 const Header = () => {
   const TitleLink = ({ className }: { className?: string }): ReactElement => (
@@ -32,7 +33,7 @@ const Header = () => {
       <AppBar
         position="static"
         sx={{
-          backgroundColor: '#454040',
+          backgroundColor: grey[900],
         }}
       >
         <Toolbar>
