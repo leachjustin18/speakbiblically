@@ -11,17 +11,20 @@ export const createPages: GatsbyNode['createPages'] = async ({
   const query = await graphql(`
     {
       allContentfulLesson(sort: { createdAt: DESC }) {
-        nodes {
-          createdAt
-          updatedAt
-          id
-          description {
-            raw
-          }
-          title
-          blogImage {
+        edges {
+          node {
+            gatsbyPath(filePath: "/lesson/{ContentfulLesson.id}")
+            createdAt
+            updatedAt
+            id
+            description {
+              raw
+            }
             title
-            gatsbyImageData(layout: FULL_WIDTH)
+            blogImage {
+              title
+              gatsbyImageData(layout: FULL_WIDTH)
+            }
           }
         }
       }
@@ -29,7 +32,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
   `);
 
   //@ts-ignore
-  const blogPosts = query?.data?.allContentfulLesson?.nodes;
+  const blogPosts = query?.data?.allContentfulLesson?.edges;
 
   paginate({
     createPage,

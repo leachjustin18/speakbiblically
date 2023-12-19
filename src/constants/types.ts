@@ -5,22 +5,24 @@ import type {
 import type { IGatsbyImageData } from 'gatsby-plugin-image';
 
 export type TContent = {
-  createdAt: string;
-  title: string;
-  description: RenderRichTextData<ContentfulRichTextGatsbyReference>;
-  updatedAt: string;
-  relatedArticles?: RenderRichTextData<ContentfulRichTextGatsbyReference>;
-  gatsbyPath: string;
-  id?: string;
-  blogImage: {
+  node: {
+    createdAt: string;
     title: string;
-    gatsbyImageData: IGatsbyImageData;
+    description: RenderRichTextData<ContentfulRichTextGatsbyReference>;
+    updatedAt: string;
+    relatedArticles?: RenderRichTextData<ContentfulRichTextGatsbyReference>;
+    gatsbyPath: string;
+    id?: string;
+    blogImage: {
+      title: string;
+      gatsbyImageData: IGatsbyImageData;
+    };
   };
 };
 
 export type TLessons = {
   allContentfulLesson: {
-    nodes: TContent[];
+    edges: TContent[];
   };
 };
 

@@ -1,9 +1,10 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 import { Link } from 'gatsby';
 import { Global, css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { AppBar, Typography, Toolbar } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import type { ReactElement } from 'react';
 
 const Header = () => {
   const TitleLink = ({ className }: { className?: string }): ReactElement => (
