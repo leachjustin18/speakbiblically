@@ -6,13 +6,15 @@ require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
 
+const siteUrl = 'https://www.speakbiblically.com';
+
 const config: GatsbyConfig = {
   flags: {
     DEV_SSR: true,
   },
   siteMetadata: {
     title: 'Speak Biblically',
-    siteUrl: 'https://www.speakbiblically.com',
+    siteUrl,
     description:
       'Devoted wholly focused on the teaching, devout observance, and unwavering compliance with the Word of God.',
   },
@@ -32,7 +34,6 @@ const config: GatsbyConfig = {
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
     'gatsby-plugin-styled-components',
-    'gatsby-plugin-sitemap',
     {
       resolve: `gatsby-plugin-feed`,
       options: {
@@ -106,7 +107,55 @@ const config: GatsbyConfig = {
       },
     },
     'gatsby-plugin-offline',
-    'gatsby-plugin-sitemap',
+    {
+      resolve: 'gatsby-plugin-sitemap',
+      options: {
+        query: `
+        {
+          allSitePage {
+            nodes {
+              path
+            }
+          }
+
+          allContentfulLesson {
+            nodes {
+              gatsbyPath(filePath: "/lesson/{ContentfulLesson.id}")
+              updatedAt
+            }
+          }
+        }
+      `,
+        resolveSiteUrl: () => siteUrl,
+        resolvePages: ({
+          allSitePage: { nodes: allPages },
+          allContentfulLesson: { nodes: allContentFulNodes },
+        }: {
+          allSitePage: { nodes: any };
+          allContentfulLesson: { nodes: any };
+        }) => {
+          const wpNodeMap = allContentFulNodes.reduce(
+            (acc: Record<any, any>, node: any) => {
+              const { gatsbyPath } = node;
+              acc[gatsbyPath] = node;
+
+              return acc;
+            },
+            {},
+          );
+
+          return allPages.map((page: any) => {
+            return { ...page, ...wpNodeMap[page.path] };
+          });
+        },
+        serialize: ({ path, updatedAt }: { path: string; updatedAt: Date }) => {
+          return {
+            url: path,
+            lastmod: updatedAt,
+          };
+        },
+      },
+    },
     'gatsby-plugin-robots-txt',
   ],
 };
