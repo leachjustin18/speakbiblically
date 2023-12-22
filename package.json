@@ -16,6 +16,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "16.3.0",
     "@emotion/react": "11.11.1",
     "@emotion/server": "11.11.0",
     "@emotion/styled": "11.11.0",
@@ -25,6 +26,7 @@
     "date-fns": "^2.30.0",
     "gatsby": "^5.12.12",
     "gatsby-awesome-pagination": "0.3.8",
+    "gatsby-plugin-feed": "5.13.0",
     "gatsby-plugin-image": "^3.12.0",
     "gatsby-plugin-manifest": "^5.12.3",
     "gatsby-plugin-offline": "^6.12.3",
