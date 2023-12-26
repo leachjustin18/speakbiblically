@@ -2,6 +2,11 @@ import path from 'path';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import type { GatsbyConfig } from 'gatsby';
 
+type TNode = {
+  gatsbyPath: string;
+  updatedAt: Date;
+};
+
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
@@ -134,8 +139,8 @@ const config: GatsbyConfig = {
           allSitePage: { nodes: any };
           allContentfulLesson: { nodes: any };
         }) => {
-          const wpNodeMap = allContentFulNodes.reduce(
-            (acc: Record<any, any>, node: any) => {
+          const contentfulNode = allContentFulNodes.reduce(
+            (acc: Record<string, TNode>, node: TNode) => {
               const { gatsbyPath } = node;
               acc[gatsbyPath] = node;
 
@@ -144,9 +149,10 @@ const config: GatsbyConfig = {
             {},
           );
 
-          return allPages.map((page: any) => {
-            return { ...page, ...wpNodeMap[page.path] };
-          });
+          return allPages.map((page: { path: string }) => ({
+            ...page,
+            ...contentfulNode[page.path],
+          }));
         },
         serialize: ({ path, updatedAt }: { path: string; updatedAt: Date }) => {
           return {
