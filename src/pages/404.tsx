@@ -1,30 +1,28 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import styled from 'styled-components';
-import Layout from '../layout/Layout';
-import Typography from '../components/Typography';
+import { Typography, Paper, Button } from '@mui/material';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { red } from '@mui/material/colors';
 
-const LinkGatsby = ({ className }: { className?: string }) => (
-  <Link className={className} to="/">
-    Home page
-  </Link>
-);
-
-const LinkHome = styled(LinkGatsby)`
-  color: rgba(0, 0, 0, 0.8);
-  font-size: 1.14rem;
-`;
-
-const PageNotFound = (): JSX.Element => (
-  <Layout>
+const PageNotFound = () => (
+  <Paper
+    sx={{
+      width: '95%',
+      margin: '0 auto',
+      textAlign: 'center',
+      padding: '16px 0',
+    }}
+    elevation={3}
+  >
+    <ErrorOutlineIcon sx={{ color: red[900], fontSize: 50 }} />
     <Typography variant="h2" gutterBottom>
-      Page not found
+      Lesson or page not found
     </Typography>
 
-    <Typography fontSize="1.14rem">
-      Please return to the <LinkHome /> and view one of our lesson(s)
-    </Typography>
-  </Layout>
+    <Button component={Link} variant="outlined" to="/">
+      Return to home
+    </Button>
+  </Paper>
 );
 
 export default PageNotFound;
