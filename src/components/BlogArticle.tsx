@@ -67,7 +67,7 @@ const BlogArticle = ({
           </ImageWrapper>
         </Grid>
         <GridContent item xs={12} md={8} px={3}>
-          <Typography variant="h4" component="h2" fontWeight={500} gutterBottom>
+          <Typography variant="h4" component="h2" gutterBottom>
             {content.title}
           </Typography>
 
