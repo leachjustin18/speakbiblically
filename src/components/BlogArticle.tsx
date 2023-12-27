@@ -8,6 +8,7 @@ import styled from '@emotion/styled';
 import { isBrowser } from '../constants/constants';
 import type { IGatsbyImageData } from 'gatsby-plugin-image';
 import type { TNode } from '../constants/types';
+import type { PaperProps } from '@mui/material';
 
 const BlogArticle = ({
   image,
@@ -32,7 +33,7 @@ const BlogArticle = ({
       : format(new window.Date(content.updatedAt), 'MMMMMMM do, yyyy');
   }
 
-  const Wrapper = styled(Paper)`
+  const Wrapper = styled(Paper)<PaperProps>`
     @media (min-width: 900px) {
       height: 300px;
     }
@@ -53,7 +54,7 @@ const BlogArticle = ({
   `;
 
   return (
-    <Wrapper sx={{ marginBottom: 2 }} elevation={3}>
+    <Wrapper sx={{ marginBottom: 2 }} elevation={3} component="article">
       <Grid container height="100%" alignItems="center">
         <Grid item xs={12} md={4} height="100%">
           <ImageWrapper>
