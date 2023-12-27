@@ -47,11 +47,13 @@ const BlogList = ({
           );
         })}
 
-      <Stack spacing={2}>
+      <Stack spacing={2} alignItems="center" my={4}>
         <Pagination
           count={numberOfPages}
           page={pageNumber || pageNumber === 0 ? pageNumber + 1 : 0}
           onChange={handleChange}
+          size="large"
+          variant="outlined"
         />
       </Stack>
     </>
