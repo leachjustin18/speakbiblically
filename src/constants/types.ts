@@ -36,5 +36,9 @@ export type TLesson = {
     updatedAt: string;
     relatedArticles?: RenderRichTextData<ContentfulRichTextGatsbyReference>;
     youTubeId: string;
+    blogImage: {
+      title: string;
+      gatsbyImageData: IGatsbyImageData;
+    };
   };
 };
