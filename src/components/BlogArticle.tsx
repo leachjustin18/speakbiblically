@@ -60,7 +60,7 @@ const BlogArticle = ({
           <ImageWrapper>
             <GatsbyImage
               image={image}
-              alt={content?.blogImage?.title}
+              alt={content.blogImage.title}
               imgStyle={{ height: '100%' }}
               style={{ height: '100%' }}
             />
