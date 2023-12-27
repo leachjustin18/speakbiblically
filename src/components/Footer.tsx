@@ -15,8 +15,8 @@ import {
 const Footer = () => {
   const FooterButton = styled(Button)<any>`
     color: #d9a762;
-    &:hover: {
-      color: #e2bd8f;
+    &:hover {
+      color: #f2d2b7;
     }
   `;
 
