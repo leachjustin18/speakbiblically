@@ -162,6 +162,12 @@ const config: GatsbyConfig = {
       },
     },
     'gatsby-plugin-robots-txt',
+    {
+      resolve: `gatsby-plugin-google-gtag`,
+      options: {
+        trackingIds: [`${process.env.GTAG_ANALYTICS}`],
+      },
+    },
   ],
 };
 
