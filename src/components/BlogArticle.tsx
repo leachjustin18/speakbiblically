@@ -93,6 +93,7 @@ const BlogArticle = ({
               WebkitLineClamp: '2',
               WebkitBoxOrient: 'vertical',
             }}
+            component="div"
           >
             {renderRichText(content.description)}
           </Typography>
