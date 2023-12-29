@@ -265,6 +265,8 @@ const Lesson = ({
                 justifyContent={{ md: 'end' }}
                 alignItems="center"
                 mt={{ xs: '8px', sm: '8px', md: 0 }}
+                useFlexGap
+                flexWrap="wrap"
               >
                 {isSocialDesktop ? <SocialShare /> : null}
 
