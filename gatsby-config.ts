@@ -38,7 +38,6 @@ const config: GatsbyConfig = {
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
-    'gatsby-plugin-styled-components',
     {
       resolve: `gatsby-plugin-feed`,
       options: {

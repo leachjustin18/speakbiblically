@@ -1,11 +1,12 @@
 {
-  "name": "speak-biblically-updates",
+  "name": "speak-biblically",
   "version": "1.0.0",
   "private": true,
-  "description": "speak-biblically-updates",
-  "author": "Justin Leach ",
+  "description": "speak-biblically",
+  "author": "Justin Leach",
   "keywords": [
-    "gatsby"
+    "gatsby",
+    "39th St Church of Christ"
   ],
   "scripts": {
     "develop": "gatsby develop",
@@ -22,7 +23,6 @@
     "@emotion/styled": "11.11.0",
     "@mui/icons-material": "5.15.0",
     "@mui/material": "5.15.0",
-    "babel-plugin-styled-components": "^2.1.4",
     "date-fns": "^2.30.0",
     "gatsby": "^5.12.12",
     "gatsby-awesome-pagination": "0.3.8",
@@ -33,7 +33,6 @@
     "gatsby-plugin-robots-txt": "^1.8.0",
     "gatsby-plugin-sharp": "^5.12.3",
     "gatsby-plugin-sitemap": "^6.12.3",
-    "gatsby-plugin-styled-components": "^6.12.0",
     "gatsby-source-contentful": "^8.12.4",
     "gatsby-source-filesystem": "^5.12.1",
     "gatsby-transformer-sharp": "^5.12.3",
@@ -41,8 +40,7 @@
     "react-dom": "^18.2.0",
     "react-responsive": "^9.0.2",
     "react-share": "5.0.3",
-    "react-youtube": "^10.1.0",
-    "styled-components": "^6.1.0"
+    "react-youtube": "^10.1.0"
   },
   "devDependencies": {
     "@types/node": "^20.3.3",
