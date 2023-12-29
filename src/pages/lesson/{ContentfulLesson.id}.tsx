@@ -293,15 +293,15 @@ const Lesson = ({
             <>
               <Typography
                 variant="h3"
-                fontSize="1.2rem"
+                fontSize="1.6rem"
                 gutterBottom
                 display="block"
-                mt={1}
+                mt={3}
               >
                 Related articles
               </Typography>
-              <RelatedArticles variant="div">
-                <Typography>{renderRichText(relatedArticles)}</Typography>
+              <RelatedArticles component="div">
+                {renderRichText(relatedArticles)}
               </RelatedArticles>
             </>
           ) : null}
