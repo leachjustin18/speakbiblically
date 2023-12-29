@@ -36,7 +36,9 @@ import YouTube from 'react-youtube';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
 import { useMediaQuery } from 'react-responsive';
 import { isBrowser } from '../../constants/constants';
+import { HTMLHead } from '../../components/HTMLHead';
 import type { IGatsbyImageData } from 'gatsby-plugin-image';
+import type { HeadFC } from 'gatsby';
 import type { TLesson } from '../../constants/types';
 
 const Lesson = ({
@@ -347,4 +349,12 @@ export const pageQuery = graphql`
   }
 `;
 
-export { Head } from '../../layout/Layout';
+export const Head: HeadFC = ({ data }) => {
+  const dataTyped = data as TLesson;
+
+  return (
+    <HTMLHead>
+      <title id="title">{dataTyped.contentfulLesson.title}</title>
+    </HTMLHead>
+  );
+};

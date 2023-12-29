@@ -25,7 +25,8 @@ const Header = () => {
     <>
       <Global
         styles={css`
-          body {
+          body,
+          p {
             margin: 0;
           }
         `}
