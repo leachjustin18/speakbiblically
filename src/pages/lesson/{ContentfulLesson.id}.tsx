@@ -34,6 +34,7 @@ import {
 import LinkIcon from '@mui/icons-material/Link';
 import YouTube from 'react-youtube';
 import { renderRichText } from 'gatsby-source-contentful/rich-text';
+import { useMediaQuery } from 'react-responsive';
 import { isBrowser } from '../../constants/constants';
 import type { IGatsbyImageData } from 'gatsby-plugin-image';
 import type { TLesson } from '../../constants/types';
@@ -140,6 +141,66 @@ const Lesson = ({
     setOpen(false);
   };
 
+  const SocialShare = () => (
+    <Fade in={checked}>
+      <Stack direction="row" spacing={1} mt="8px" justifyContent="flex-end">
+        <Tooltip title="Share on Pinterest">
+          <PinterestShareButton url={shareUrl} media={shareImage}>
+            <PinterestIcon size={iconSize} round />
+          </PinterestShareButton>
+        </Tooltip>
+
+        <Tooltip title="Share on Facebook">
+          <FacebookShareButton url={shareUrl}>
+            <FacebookIcon size={iconSize} round />
+          </FacebookShareButton>
+        </Tooltip>
+
+        <Tooltip title="Share on X (Twitter)">
+          <Box>
+            <TwitterShareButton url={shareUrl} title={title}>
+              <XIcon size={iconSize} round />
+            </TwitterShareButton>
+          </Box>
+        </Tooltip>
+
+        <Tooltip title="Share on Reddit">
+          <Box>
+            <RedditShareButton
+              url={shareUrl}
+              title={title}
+              windowWidth={660}
+              windowHeight={460}
+            >
+              <RedditIcon size={iconSize} round />
+            </RedditShareButton>
+          </Box>
+        </Tooltip>
+
+        <Tooltip title="Send as an email">
+          <Box>
+            <EmailShareButton
+              url={shareUrl}
+              subject={title}
+              body="Check out this Speak Biblically lesson!"
+            >
+              <EmailIcon size={iconSize} round />
+            </EmailShareButton>
+          </Box>
+        </Tooltip>
+        <Tooltip title="Copy to clipboard">
+          <CopyToClipboardIconButton onClick={handleCopyToClipboard}>
+            <LinkIcon fontSize="small" />
+          </CopyToClipboardIconButton>
+        </Tooltip>
+      </Stack>
+    </Fade>
+  );
+
+  const isSocialDesktop = useMediaQuery({
+    query: '(min-width: 900px)',
+  });
+
   return (
     <>
       {hydrated && (
@@ -175,8 +236,13 @@ const Lesson = ({
             </Typography>
           </Breadcrumbs>
 
-          <Grid container mt={1} justifyContent="space-between">
-            <Grid item pt="8px">
+          <Grid
+            container
+            mt={1}
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Grid item sm={12} md={6} lg={6}>
               <Typography variant="caption">
                 <strong>Published on: </strong>
                 {createdDate}
@@ -191,69 +257,23 @@ const Lesson = ({
                 </>
               ) : null}
             </Grid>
-            <Grid item textAlign="right">
-              <Button variant="outlined" onClick={handleChange}>
-                Share
-              </Button>
 
-              <Fade in={checked}>
-                <Stack
-                  direction="row"
-                  spacing={1}
-                  mt="8px"
-                  justifyContent="flex-end"
-                >
-                  <Tooltip title="Share on Pinterest">
-                    <PinterestShareButton url={shareUrl} media={shareImage}>
-                      <PinterestIcon size={iconSize} round />
-                    </PinterestShareButton>
-                  </Tooltip>
+            <Grid item textAlign="right" sm={12} md={6} lg={6}>
+              <Stack
+                direction="row"
+                spacing={1}
+                justifyContent={{ md: 'end' }}
+                alignItems="center"
+                mt={{ xs: '8px', sm: '8px', md: 0 }}
+              >
+                {isSocialDesktop ? <SocialShare /> : null}
 
-                  <Tooltip title="Share on Facebook">
-                    <FacebookShareButton url={shareUrl}>
-                      <FacebookIcon size={iconSize} round />
-                    </FacebookShareButton>
-                  </Tooltip>
+                <Button variant="outlined" onClick={handleChange}>
+                  Share
+                </Button>
 
-                  <Tooltip title="Share on X (Twitter)">
-                    <Box>
-                      <TwitterShareButton url={shareUrl} title={title}>
-                        <XIcon size={iconSize} round />
-                      </TwitterShareButton>
-                    </Box>
-                  </Tooltip>
-
-                  <Tooltip title="Share on Reddit">
-                    <Box>
-                      <RedditShareButton
-                        url={shareUrl}
-                        title={title}
-                        windowWidth={660}
-                        windowHeight={460}
-                      >
-                        <RedditIcon size={iconSize} round />
-                      </RedditShareButton>
-                    </Box>
-                  </Tooltip>
-
-                  <Tooltip title="Send as an email">
-                    <Box>
-                      <EmailShareButton
-                        url={shareUrl}
-                        subject={title}
-                        body="Check out this Speak Biblically lesson!"
-                      >
-                        <EmailIcon size={iconSize} round />
-                      </EmailShareButton>
-                    </Box>
-                  </Tooltip>
-                  <Tooltip title="Copy to clipboard">
-                    <CopyToClipboardIconButton onClick={handleCopyToClipboard}>
-                      <LinkIcon fontSize="small" />
-                    </CopyToClipboardIconButton>
-                  </Tooltip>
-                </Stack>
-              </Fade>
+                {!isSocialDesktop ? <SocialShare /> : null}
+              </Stack>
             </Grid>
           </Grid>
 
