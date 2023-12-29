@@ -2,8 +2,9 @@ import type {
   ContentfulRichTextGatsbyReference,
   RenderRichTextData,
 } from 'gatsby-source-contentful/rich-text';
+import type { IGatsbyImageData } from 'gatsby-plugin-image';
 
-export type TContent = {
+export type TNode = {
   createdAt: string;
   title: string;
   description: RenderRichTextData<ContentfulRichTextGatsbyReference>;
@@ -11,11 +12,19 @@ export type TContent = {
   relatedArticles?: RenderRichTextData<ContentfulRichTextGatsbyReference>;
   gatsbyPath: string;
   id?: string;
+  blogImage: {
+    title: string;
+    gatsbyImageData: IGatsbyImageData;
+  };
+};
+
+export type TContent = {
+  node: TNode;
 };
 
 export type TLessons = {
   allContentfulLesson: {
-    nodes: TContent[];
+    edges: TContent[];
   };
 };
 
@@ -27,5 +36,9 @@ export type TLesson = {
     updatedAt: string;
     relatedArticles?: RenderRichTextData<ContentfulRichTextGatsbyReference>;
     youTubeId: string;
+    blogImage: {
+      title: string;
+      gatsbyImageData: IGatsbyImageData;
+    };
   };
 };
