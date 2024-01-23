@@ -89,6 +89,10 @@ const Lesson = ({
     white-space: pre-wrap;
     line-height: 1.5;
 
+    p {
+      margin-bottom: 1rem;
+    }
+
     @media (max-width: 37.5rem) {
       font-size: 4vw;
     }
