@@ -22,7 +22,7 @@
     "@emotion/server": "11.11.0",
     "@emotion/styled": "11.11.0",
     "@mui/icons-material": "5.15.2",
-    "@mui/material": "5.15.2",
+    "@mui/material": "5.15.3",
     "date-fns": "^2.30.0",
     "gatsby": "^5.13.2",
     "gatsby-awesome-pagination": "0.3.8",
