@@ -17,7 +17,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@contentful/rich-text-html-renderer": "16.6.1",
+    "@contentful/rich-text-html-renderer": "16.6.4",
     "@emotion/react": "11.11.4",
     "@emotion/server": "11.11.0",
     "@emotion/styled": "11.11.5",
