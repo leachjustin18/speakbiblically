@@ -6,7 +6,6 @@ import {
   AccountTree,
   Facebook,
   RssFeed,
-  Twitter,
   Pinterest,
   Instagram,
   YouTube,
